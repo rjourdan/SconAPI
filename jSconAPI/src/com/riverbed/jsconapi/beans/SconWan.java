@@ -4,6 +4,10 @@ import java.util.Arrays;
 
 public class SconWan extends SconObject {
 		  	
+		/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6911793690989821217L;
 		private String[] uplinks;
 		private String[] networks;
 		private String longname;  

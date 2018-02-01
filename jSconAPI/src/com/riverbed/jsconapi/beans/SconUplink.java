@@ -2,6 +2,10 @@ package com.riverbed.jsconapi.beans;
 
 public class SconUplink extends SconObject{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7796531156047953500L;
 	private int qos_bw_up;
 	private int qos_up;
 	private int qos_bw_down;

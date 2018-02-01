@@ -8,6 +8,10 @@ import com.riverbed.jsconapi.util.SconTimeZone;
 
 public class SconSite extends SconObject{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -866277588121250315L;
 	private String longName;
 	private String address;
 	private String city;

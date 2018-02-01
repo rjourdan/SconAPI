@@ -4,7 +4,11 @@ import java.util.Arrays;
 
 public class SconNode extends SconObject{
 	
-	 	public static final String SDI_VGW = "yogi"; 	
+	 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1271754552868175679L;
+		public static final String SDI_VGW = "yogi"; 	
 	 	public static final String SDI_AWS = "booboo";	
 	 	public static final String SDI_SH = "baloo";		
 	 	public static final String SDI_USB  = "fozzy"; 		

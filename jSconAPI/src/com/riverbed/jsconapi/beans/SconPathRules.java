@@ -3,6 +3,10 @@ package com.riverbed.jsconapi.beans;
 public class SconPathRules extends SconObject {
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4738465613575504098L;
 	public static final String DST_APPS = "apps";
 	public static final String DST_SEGMENTS = "segments";
 	public static final String DST_DSCP = "dscp";

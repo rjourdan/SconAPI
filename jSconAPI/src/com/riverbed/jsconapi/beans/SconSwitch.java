@@ -2,6 +2,11 @@ package com.riverbed.jsconapi.beans;
 
 public class SconSwitch extends SconNode {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3560320999510429105L;
+
 	public SconSwitch(String name, String model, String simulated, String site,String serial) {
 		super(name, model, simulated, site,serial);
 		// TODO Auto-generated constructor stub

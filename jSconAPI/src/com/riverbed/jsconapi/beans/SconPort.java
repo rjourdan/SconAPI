@@ -3,7 +3,11 @@ package com.riverbed.jsconapi.beans;
 public class SconPort extends SconObject{
 	
 
-	  private String portId;
+	  /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5952274237600444461L;
+	private String portId;
 	  private String node;
 	  private String tag;
 	  private String type;

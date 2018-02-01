@@ -4,6 +4,10 @@ import java.util.Arrays;
 
 public class SconZone extends SconObject{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3596563759649129255L;
 	private String siteID;
     private String[] networks;
     private String mgmt;

@@ -5,6 +5,10 @@ import java.util.Arrays;
 public class SconSsid  extends SconObject{
 
 	
+		/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5188278065299321866L;
 		private String ssid;
 		private String security;
 		private String key;
