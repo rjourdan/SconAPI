@@ -1,5 +1,6 @@
 package com.riverbed.jsconapi.rest;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.Authenticator;
 import java.net.MalformedURLException;
@@ -47,12 +48,11 @@ public class SconJsonOperations {
 				System.out.println(e1.toString());
 			}
 			
-			//write!!!!!!!!!!
 			JsonWriter writer = Json.createWriter(conn.getOutputStream());
 			writer.writeObject(json);
 			writer.close();
 			int status = conn.getResponseCode();
-			System.out.println("status "+status+" json request:"+json.toString());
+			//System.out.println("status "+status+" json request:"+json.toString());
 			JsonObject returnJson = Json.createReader(conn.getInputStream()).readObject();
 	    	conn.disconnect();
 	    	return returnJson;
@@ -83,7 +83,12 @@ public class SconJsonOperations {
 				if (status==401) System.out.println("Authentication error");
 				else System.out.println("HTTP Status code:"+status);
 			}
+			try {
 			json = Json.createReader(conn.getInputStream()).readObject();
+			} catch (FileNotFoundException fnfe) {
+				//most likely status code = 400
+				json = null;
+			}
 	    	conn.disconnect();
 	    	return json;
 	    }

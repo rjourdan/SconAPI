@@ -23,11 +23,15 @@ import com.riverbed.jsconapi.util.StringModifier;
 public class SconSiteAPI implements SconObjectAPI {
 
 	public SconSiteAPI() {
-		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public SconObject convertFromJson(JsonObject jsonObj) {
+
+	/**
+	 * This method parses a JsonObject that contains a SteelConnect Site details and will build a SconSite object accordingly
+	 * @param jsonObj the JsonObject that contains SteelConnect site details
+	 * @return a SconSite object
+	 */
+	public static SconObject convertFromJson(JsonObject jsonObj) {
 		SconObject sconObj = null;
 		if(jsonObj==null) return null;
 				
@@ -57,14 +61,23 @@ public class SconSiteAPI implements SconObjectAPI {
 		 networks = SconObjectCallApi.jsonArrayToStringArray(jsonObj.getJsonArray("networks"));
 		
 		int size = 0;
-		if(!jsonObj.isNull("size")) size = Integer.parseInt(jsonObj.getString("size"));
+		if(!jsonObj.isNull("size")) {
+			
+			size = jsonObj.getInt("size");
+		}
 		sconObj = new SconSite(id, name, longName, address, city, countryCode, uplinks, timezone, networks, size);
 		return sconObj;
 	}
 
-	@Override
-	public JsonObject buildSconJsonObject(SconObject obj) {
+	/**
+	 * This method creates a JSON object to make REST API calls based on the SconSite object's attributes.
+	 * @param obj a SconSite object 
+	 * @return a JsonOject built with SconSite Attributes or null if the object was from a different instance.
+	 */
+	public static JsonObject buildSconJsonObject(SconObject obj) {
 		JsonObject json = null;
+		//if object is wrong instance then return null;
+				if (!(obj instanceof SconSite)) return json;
 		JsonObjectBuilder jsonBuilder = Json.createObjectBuilder();
 		SconSite site = (SconSite) obj;
 		jsonBuilder
@@ -78,27 +91,14 @@ public class SconSiteAPI implements SconObjectAPI {
 		return json;
 	}
 
-	@Override
-	public SconObject getByName(String realmUrl, String objectName, String orgID) {
-		//find the object on SteelConnect
-		List<SconObject> sconObjectList = getAll(realmUrl, orgID);
-		
-		if(sconObjectList!=null){			
-			SconObject obj=null;
-			for (int i=0;i<sconObjectList.size();i++){
-				obj = sconObjectList.get(i);
-				
-				if(obj!=null){
-					
-					if(objectName.equals(obj.getName())) return obj;	
-				}
-			}
-		}
-		return null;
-	}
-
-	@Override
-	public SconObject get(String realmUrl, String objId) {
+	
+	/**
+	 * Returns a SconSite object based on its ID
+	 * @param realmUrl The URL of SteelConnect Realm in the following format "https://xyz.riverbed.cc"
+	 * @param objId The Id of the site we are looking for
+	 * @return a SConSite object that matches objId or null if not found
+	 */
+	public static SconObject get(String realmUrl, String objId) {
 		SconSite site = null;
 		
 		String url = realmUrl + API_PREFIX+"site/"+objId;
@@ -118,8 +118,13 @@ public class SconSiteAPI implements SconObjectAPI {
 		
 	}
 
-	@Override
-	public List<SconObject> getAll(String realmUrl, String orgID) {
+	/**
+	 * Lists all SconSite that it gets from the SteelConnect Organization
+	 * @param realmUrl The URL of SteelConnect Realm in the following format "https://xyz.riverbed.cc"
+	 * @param orgID The id of the SteelConnect organization to make the call to. orgId will be in the following format "org-abc-xyz"
+	 * @return a list of SconSite objects
+	 */
+	public static List<SconObject> getAll(String realmUrl, String orgID) {
 		List<SconObject> objectList = new ArrayList<SconObject>();
 		
 		String url = realmUrl + API_PREFIX +"org/"+orgID+"/sites";
@@ -140,8 +145,14 @@ public class SconSiteAPI implements SconObjectAPI {
 		return objectList;
 	}
 
-	@Override
-	public SconObject create(String realmUrl, String orgID, SconObject obj) {
+	/**
+	 * Creates a SconSite in a particular SteelConnect organization via the REST API
+	 * @return SconObject the site that was created
+	 * @param realmUrl The URL of SteelConnect Realm in the following format "https://xyz.riverbed.cc"
+	 * @param orgID The id of the SteelConnect organization to make the call to. orgId will be in the following format "org-abc-xyz"
+	 * @param obj The SconSite to be created on SteelConnect
+	 */
+	public static SconObject create(String realmUrl, String orgID, SconObject obj) {
 		if(obj==null) return null;
 		
 		JsonObject jsonObj = null;
@@ -165,8 +176,14 @@ public class SconSiteAPI implements SconObjectAPI {
 		return obj;
 	}
 
-	@Override
-	public SconObject update(String realmUrl, String orgID, SconObject obj) {
+	/**
+	 * Updates a SconSite in a particular SteelConnect organization via the REST API
+	 * @return SconObject the site that was updated
+	 * @param realmUrl The URL of SteelConnect Realm in the following format "https://xyz.riverbed.cc"
+	 * @param orgID The id of the SteelConnect organization to make the call to. orgId will be in the following format "org-abc-xyz"
+	 * @param obj The SconSite to be updated on SteelConnect
+	 */
+	public static SconObject update(String realmUrl, String orgID, SconObject obj) {
 		if(obj==null) return null;
 		JsonObject jsonObj = null;
 		String url = realmUrl+API_PREFIX+"site/"+obj.getId();
@@ -191,10 +208,27 @@ public class SconSiteAPI implements SconObjectAPI {
 		return obj;
 	}
 
-	@Override
-	public SconObject delete(String realmUrl, String orgID, SconObject obj) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Deletes a SconSite in a particular SteelConnect organization via the REST API
+	 * @return SconObject the site that was deleted
+	 * @param realmUrl The URL of SteelConnect Realm in the following format "https://xyz.riverbed.cc"
+	 * @param orgID The id of the SteelConnect organization to make the call to. orgId will be in the following format "org-abc-xyz"
+	 * @param obj The SconSite to be deleted on SteelConnect
+	 */
+	public static SconObject delete(String realmUrl, String orgID, SconObject obj) {
+		if(obj==null) return null;
+		
+		String url = realmUrl+API_PREFIX+"site/"+obj.getId();
+		
+		
+		try {
+			SconJsonOperations.DeleteData(url);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
+		return obj;
 	}
 
 }
