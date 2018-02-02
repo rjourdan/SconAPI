@@ -36,14 +36,6 @@ public class SconTimeZone {
 				availableTimezones.put(countryCode, timezones);
 			}
 		
-			// Find all timezones for that country (code) using ICU4J
-		
-			for (String id :com.ibm.icu.util.TimeZone.getAvailableIDs(countryCode))
-			{
-		
-				// Add timezone to result map
-				timezones.add(TimeZone.getTimeZone(id));
-			}	
 		
 		}
 		
