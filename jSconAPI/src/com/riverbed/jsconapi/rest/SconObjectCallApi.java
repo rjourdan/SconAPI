@@ -380,7 +380,7 @@ public class SconObjectCallApi {
 				if(!jsonObj.isNull("breakout_sites"))
 					breakout_sites = jsonArrayToStringArray(jsonObj.getJsonArray("breakout_sites"));
 				
-				sconObj = new SconWan(id, name, uplinks, networks, longName, internet, sitelink, breakout, breakout_sites);
+				//sconObj = new SconWan(id, name, uplinks, networks, longName, internet, sitelink, breakout, breakout_sites);
 			}
 			
 			if(type.equals(ZONE)){
@@ -474,7 +474,7 @@ public class SconObjectCallApi {
 		
 		if(type.equals(PATHRULE)){
 			SconPathRulesAPI api = new SconPathRulesAPI();
-			result = api.get(baseUrl, objID,null);
+			result = api.get(baseUrl, objID);
 			return result;
 		}
 		
@@ -806,10 +806,10 @@ public class SconObjectCallApi {
 		System.out.println("WAN size "+wans.size());
 		if(wans.size()<3){
 			try {
-				wanMpls = new SconWan("MPLS", "MPLS", "0");
+				wanMpls = new SconWan("MPLS", "MPLS", Boolean.FALSE);
 				wanMpls = (SconWan) createSconObject(baseUrl, orgID, wanMpls);
 				
-				wanLte = new SconWan("LTE", "4G", "1");
+				wanLte = new SconWan("LTE", "4G", Boolean.TRUE);
 				wanLte = (SconWan) createSconObject(baseUrl, orgID, wanLte);
 				
 			} catch (IOException e1) {

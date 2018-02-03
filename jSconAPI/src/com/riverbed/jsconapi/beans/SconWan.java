@@ -11,11 +11,11 @@ public class SconWan extends SconObject {
 		private String[] uplinks;
 		private String[] networks;
 		private String longname;  
-		private String internet;
-		private String sitelink;
+		private boolean internet;
+		private boolean sitelink;
 		private String pingcheck_ips;
 		private String[] dcuplinks;    
-		private String breakout;
+		private boolean breakout;
 		private String[] breakout_sites;
 		private String xfer_networks;
 		
@@ -37,16 +37,16 @@ public class SconWan extends SconObject {
 		public void setLongname(String longname) {
 			this.longname = longname;
 		}
-		public String isInternet() {
+		public boolean isInternet() {
 			return internet;
 		}
-		public void setInternet(String internet) {
+		public void setInternet(boolean internet) {
 			this.internet = internet;
 		}
-		public String isSitelink() {
+		public boolean isSitelink() {
 			return sitelink;
 		}
-		public void setSitelink(String sitelink) {
+		public void setSitelink(boolean sitelink) {
 			this.sitelink = sitelink;
 		}
 		public String getPingcheck_ips() {
@@ -61,10 +61,10 @@ public class SconWan extends SconObject {
 		public void setDcuplinks(String[] dcuplinks) {
 			this.dcuplinks = dcuplinks;
 		}
-		public String isBreakout() {
+		public boolean isBreakout() {
 			return breakout;
 		}
-		public void setBreakout(String breakout) {
+		public void setBreakout(boolean breakout) {
 			this.breakout = breakout;
 		}
 		public String[] getBreakout_sites() {
@@ -79,14 +79,12 @@ public class SconWan extends SconObject {
 		public void setXfer_networks(String xfer_networks) {
 			this.xfer_networks = xfer_networks;
 		}
-		/**
-		 * @param longname
-		 * @param internet
-		 */
-		public SconWan(String name,String longname, String internet) {
+		
+
+		public SconWan(String name,String longname, boolean breakout) {
 			super();
 			this.longname = longname;
-			this.internet = internet;
+			this.breakout = breakout;
 			this.setName(name);
 		}
 		/**
@@ -98,8 +96,8 @@ public class SconWan extends SconObject {
 		 * @param breakout
 		 * @param breakout_sites
 		 */
-		public SconWan(String id, String name,String[] uplinks, String[] networks, String longname, String internet, String sitelink,
-				String breakout, String[] breakout_sites) {
+		public SconWan(String id, String name,String[] uplinks, String[] networks, String longname, boolean internet, boolean sitelink,
+				boolean breakout, String[] breakout_sites) {
 			super();
 			this.setId(id);
 			this.setName(name);

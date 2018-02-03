@@ -43,7 +43,7 @@ class SconSiteAPITest {
 	@Test
 	void testGet() {
 		site = (SconSite) SconSiteAPI.create(url, orgID, site);
-		assertNotNull(SconSiteAPI.getAll(url, orgID));
+		assertNotNull(SconSiteAPI.get(url, site.getId()));
 		SconSiteAPI.delete(url, orgID, site);
 		
 	}

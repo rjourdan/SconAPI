@@ -33,6 +33,7 @@ public class SconJsonOperations {
 	  */
 	 public static final JsonObject PostData (String link, JsonObject json) throws IOException{
 	    	URL url = null;
+	    	//System.out.println(json);
 	    	HttpsURLConnection conn = null;
 			Authenticator.setDefault(new MyAuthenticator());
 			try {
@@ -51,8 +52,6 @@ public class SconJsonOperations {
 			JsonWriter writer = Json.createWriter(conn.getOutputStream());
 			writer.writeObject(json);
 			writer.close();
-			int status = conn.getResponseCode();
-			//System.out.println("status "+status+" json request:"+json.toString());
 			JsonObject returnJson = Json.createReader(conn.getInputStream()).readObject();
 	    	conn.disconnect();
 	    	return returnJson;
@@ -152,8 +151,7 @@ public class SconJsonOperations {
 			JsonWriter writer = Json.createWriter(conn.getOutputStream());
 			writer.writeObject(json);
 			writer.close();
-			int status = conn.getResponseCode();
-			System.out.println("status "+status);
+		
 			JsonObject returnJson = Json.createReader(conn.getInputStream()).readObject();
 	    	conn.disconnect();
 	    	return returnJson;

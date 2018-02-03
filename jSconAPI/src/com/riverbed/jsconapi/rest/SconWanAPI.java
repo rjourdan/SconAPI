@@ -1,6 +1,7 @@
 package com.riverbed.jsconapi.rest;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,14 +16,21 @@ import com.riverbed.jsconapi.beans.SconObject;
 import com.riverbed.jsconapi.beans.SconWan;
 import com.riverbed.jsconapi.util.StringModifier;
 
+
+/**
+ * This class provides the primitives to create, update, get or delete WANs on SteelConnect. It will make the appropriate REST API calls to a given SCM organization.
+ * 
+ * @author rjourdan <a href="mailto:rjourdan@riverbed.com">rjourdan@riverbed.com</a>
+ * @version 1.0
+ */
 public class SconWanAPI implements SconObjectAPI {
 
-	public SconWanAPI() {
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public SconObject convertFromJson(JsonObject jsonObj) {
+	/**
+	 * This method parses a JsonObject that contains a SteelConnect WAN details and will build a SconSite object accordingly
+	 * @param jsonObj the JsonObject that contains SteelConnect WAN details
+	 * @return a SconWAN object
+	 */
+	public static SconObject convertFromJson(JsonObject jsonObj) {
 		SconObject sconObj = null;
 		if(jsonObj==null) return null;
 				
@@ -42,14 +50,17 @@ public class SconWanAPI implements SconObjectAPI {
 		tempValue = jsonObj.get("longname");
 		if(tempValue!=null) longName = tempValue.toString();
 		
-		String internet = "true";
-		internet = jsonObj.get("internet").toString();
+		boolean internet = Boolean.TRUE;
+		String test = jsonObj.get("internet").toString();
+		if(test.equals("0")) internet = Boolean.FALSE;
+	
+		boolean sitelink = Boolean.TRUE;
+		test = jsonObj.get("sitelink").toString();
+		if(test.equals("0")) sitelink = Boolean.FALSE;
 		
-		String sitelink = "true";
-		sitelink = jsonObj.get("sitelink").toString();
-		
-		String breakout = "true";
-		breakout = jsonObj.get("breakout").toString();
+		boolean breakout = Boolean.TRUE;
+		jsonObj.get("breakout").toString();
+		if(test.equals("0")) breakout = Boolean.FALSE;
 		
 		String[] breakout_sites = new String[0];
 		if(!jsonObj.isNull("breakout_sites"))
@@ -59,52 +70,59 @@ public class SconWanAPI implements SconObjectAPI {
 		return sconObj;
 	}
 
-	@Override
-	public JsonObject buildSconJsonObject(SconObject obj) {
+	/**
+	 * This method parses a JsonObject that contains a SteelConnect WAN details and will build a SconWAN object accordingly
+	 * @param jsonObj the JsonObject that contains SteelConnect WAN details
+	 * @return a SconWAN object
+	 */
+	public static JsonObject buildSconJsonObject(SconObject obj) {
 		JsonObject json = null;
 		JsonObjectBuilder jsonBuilder = Json.createObjectBuilder();
 		SconWan wan = (SconWan) obj;
 		jsonBuilder
 			.add("name", wan.getName())
 			.add("longname", wan.getLongname())
+			.add("breakout", wan.isBreakout())
+			.add("sitelink", wan.isSitelink())
 			.add("internet", wan.isInternet());
-		
 		
 		json = jsonBuilder.build();
 		
 		return json;
 	}
-
-	@Override
-	public SconObject getByName(String realmUrl, String objectName,String orgID) {
-		objectName = objectName.toLowerCase();
-		//find the object on SteelConnect
-		List<SconObject> sconObjectList = getAll(realmUrl, orgID);
+	
+	/**
+	 * Returns a SconWan object based on its ID
+	 * @param realmUrl The URL of SteelConnect Realm in the following format "https://xyz.riverbed.cc"
+	 * @param objId The Id of the site we are looking for
+	 * @return a SConWan object that matches objId or null if not found
+	 */
+	public static SconObject get(String realmUrl, String objId,String orgID) {
+		SconWan wan = null;
 		
-		if(sconObjectList!=null){			
-			SconObject obj=null;
-			String tempName="";
-			for (int i=0;i<sconObjectList.size();i++){
-				obj = sconObjectList.get(i);
-				
-				if(obj!=null){
-					tempName = obj.getName();
-					tempName = tempName.toLowerCase();
-					if(objectName.equals(tempName)) return obj;	
-				}
+		String url = realmUrl + API_PREFIX+"wan/"+objId;
+		
+		JsonObject jsonObj = null;
+		try {
+			jsonObj = SconJsonOperations.GetData(url);
+			if(jsonObj!=null){
+				wan = (SconWan) convertFromJson(jsonObj);
 			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return null;
+		
+		return wan;
 	}
 
-	@Override
-	public SconObject get(String realmUrl, String objId,String orgID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<SconObject> getAll(String realmUrl, String orgID) {
+	/**
+	 * Lists all SconWan that it gets from the SteelConnect Organization
+	 * @param realmUrl The URL of SteelConnect Realm in the following format "https://xyz.riverbed.cc"
+	 * @param orgID The id of the SteelConnect organization to make the call to. orgId will be in the following format "org-abc-xyz"
+	 * @return a list of SconWan objects
+	 */
+	public static List<SconObject> getAll(String realmUrl, String orgID) {
 List<SconObject> objectList = new ArrayList<SconObject>();
 		
 		String url = realmUrl + API_PREFIX +"org/"+orgID+"/wans";
@@ -125,22 +143,90 @@ List<SconObject> objectList = new ArrayList<SconObject>();
 		return objectList;
 	}
 
-	@Override
-	public SconObject create(String realmUrl, String orgID, SconObject obj) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Creates a SconWan in a particular SteelConnect organization via the REST API
+	 * @return SconObject the wan that was created
+	 * @param realmUrl The URL of SteelConnect Realm in the following format "https://xyz.riverbed.cc"
+	 * @param orgID The id of the SteelConnect organization to make the call to. orgId will be in the following format "org-abc-xyz"
+	 * @param obj The SconWan to be created on SteelConnect
+	 */
+	public static SconObject create(String realmUrl, String orgID, SconObject obj) {
+		if(obj==null) return null;
+		
+		JsonObject jsonObj = null;
+		String url = realmUrl+API_PREFIX +"org/"+orgID+"/wans";
+		
+		jsonObj = buildSconJsonObject(obj);
+		try {
+			jsonObj = SconJsonOperations.PostData(url, jsonObj);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		JsonValue tempValue = jsonObj.get("id");
+		
+		if(tempValue!=null){
+			String id = StringModifier.removeBrackets(tempValue.toString());
+			obj.setId(id);
+		}                   
+		else return null;
+		
+		return obj;
 	}
 
-	@Override
-	public SconObject update(String realmUrl, String orgID, SconObject obj) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Updates a SconWan in a particular SteelConnect organization via the REST API
+	 * @return SconObject the wan that was updated
+	 * @param realmUrl The URL of SteelConnect Realm in the following format "https://xyz.riverbed.cc"
+	 * @param orgID The id of the SteelConnect organization to make the call to. orgId will be in the following format "org-abc-xyz"
+	 * @param obj The SconWan to be updated on SteelConnect
+	 */
+	public static SconObject update(String realmUrl, String orgID, SconObject obj) {
+		if(obj==null) return null;
+		JsonObject jsonObj = null;
+		String url = realmUrl+API_PREFIX+"wan/"+obj.getId();
+		
+		jsonObj = buildSconJsonObject(obj);
+		
+		try {
+			jsonObj = SconJsonOperations.PutData(url, jsonObj);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
+		JsonValue tempValue = jsonObj.get("id");
+		if(tempValue!=null){
+			String id = StringModifier.removeBrackets(tempValue.toString());
+			obj.setId(id);
+		}
+		                   
+		else return null;
+		
+		return obj;
 	}
 
-	@Override
-	public SconObject delete(String realmUrl, String orgID, SconObject obj) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Deletes a SconWan in a particular SteelConnect organization via the REST API
+	 * @return SconObject the wan that was deleted
+	 * @param realmUrl The URL of SteelConnect Realm in the following format "https://xyz.riverbed.cc"
+	 * @param orgID The id of the SteelConnect organization to make the call to. orgId will be in the following format "org-abc-xyz"
+	 * @param obj The SconWan to be deleted on SteelConnect
+	 */
+	public static SconObject delete(String realmUrl, String orgID, SconObject obj) {
+		if(obj==null) return null;
+		
+		String url = realmUrl+API_PREFIX+"wan/"+obj.getId();
+		
+		
+		try {
+			SconJsonOperations.DeleteData(url);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
+		return obj;
 	}
 
 }

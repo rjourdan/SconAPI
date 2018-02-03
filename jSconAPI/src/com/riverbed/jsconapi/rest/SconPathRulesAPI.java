@@ -25,17 +25,12 @@ import com.riverbed.jsconapi.util.StringModifier;
  */
 public class SconPathRulesAPI implements SconObjectAPI {
 
-	public SconPathRulesAPI() {
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
 	/**
 	 * This method parses a JsonObject that contains SteelConnect Path Rules details and will build a SconPathRules object accordingly
 	 * @param jsonObj the JsonObject that contains SteelConnect Path Rules details
 	 * @return a SconPathRules object
 	 */
-	public SconObject convertFromJson(JsonObject jsonObj) {
+	public static SconObject convertFromJson(JsonObject jsonObj) {
 		SconObject sconObj = null;
 		if(jsonObj==null) return null;
 				
@@ -106,14 +101,13 @@ public class SconPathRulesAPI implements SconObjectAPI {
 	}
 
 	
-	
-	@Override
+
 	/**
 	 * This method creates a JSON object to make REST API calls based on the SconPathRules object's attributes.
 	 * @param obj a SconPathRules object 
 	 * @return a JsonOject built with SconPathRules Attributes or null if the object was from a different instance.
 	 */
-	public JsonObject buildSconJsonObject(SconObject obj) {
+	public static JsonObject buildSconJsonObject(SconObject obj) {
 		JsonObject json = null;
 		//if object is wrong instance then return null;
 		if (!(obj instanceof SconPathRules)) return json;
@@ -187,15 +181,13 @@ public class SconPathRulesAPI implements SconObjectAPI {
 	}
 
 	
-	
-	@Override
 	/**
 	 * Returns a SconPathRules object based on its ID
 	 * @param realmUrl The URL of SteelConnect Realm in the following format "https://xyz.riverbed.cc"
 	 * @param objId The Id of the application we are looking for
 	 * @return a SconPathRules object that matches objId or null if not found
 	 */
-	public SconObject get(String realmUrl, String objId) {
+	public static SconObject get(String realmUrl, String objId) {
 		SconPathRules rule = null;
 		String url = realmUrl + API_PREFIX+"path_rule/"+objId;
 		
@@ -213,34 +205,16 @@ public class SconPathRulesAPI implements SconObjectAPI {
 		return rule;
 	}
 
-	@Override
+	
 	/**
-	 * Returns a SconPathRules object based on its name
+	 * Lists all SconPathRules that it gets from the SteelConnect Organization
 	 * @param realmUrl The URL of SteelConnect Realm in the following format "https://xyz.riverbed.cc"
 	 * @param objectName The name of the path rule we are looking for
 	 * @param orgID The id of the SteelConnect organization to make the call to. orgId will be in the following format "org-abc-xyz";
-	 * @return a SConPathRule object that matches objectName or null if not found
+	 * @return a list of all SConPathRule objects from the org
 	 */
-	public SconObject getByName(String realmUrl, String objectName,String orgID) {
-		//find the object on SteelConnect
-		List<SconObject> sconObjectList = getAll(realmUrl, null);
-		
-		if(sconObjectList!=null){			
-			SconObject obj=null;
-			for (int i=0;i<sconObjectList.size();i++){
-				obj = sconObjectList.get(i);
-				
-				if(obj!=null){
-					
-					if(objectName.equals(obj.getName())) return obj;	
-				}
-			}
-		}
-		return null;
-	}
-
-	@Override
-	public List<SconObject> getAll(String realmUrl, String orgID) {
+	
+	public static List<SconObject> getAll(String realmUrl, String orgID) {
 		List<SconObject> objectList = new ArrayList<SconObject>();
 		
 		String url = realmUrl + API_PREFIX +"path_rules";
@@ -261,7 +235,6 @@ public class SconPathRulesAPI implements SconObjectAPI {
 		return objectList;
 	}
 	
-	@Override
 	/**
 	 * Creates a Path Rule in a particular SteelConnect organization via the REST API
 	 * @return SconPathRules the object that was created
@@ -269,7 +242,7 @@ public class SconPathRulesAPI implements SconObjectAPI {
 	 * @param orgID The id of the SteelConnect organization to make the call to. orgId will be in the following format "org-abc-xyz"
 	 * @param obj The SconPathRules to be created on SteelConnect
 	 */
-	public SconObject create(String realmUrl, String orgID, SconObject obj) {
+	public static SconObject create(String realmUrl, String orgID, SconObject obj) {
 		if(obj==null) return null;
 		
 		JsonObject jsonObj = null;
@@ -294,8 +267,6 @@ public class SconPathRulesAPI implements SconObjectAPI {
 	}
 
 	
-	
-	@Override
 	/**
 	 * Updates a Path Rule in a particular SteelConnect organization via the REST API
 	 * @return SconPathRules the object that was updated
@@ -303,7 +274,7 @@ public class SconPathRulesAPI implements SconObjectAPI {
 	 * @param orgID The id of the SteelConnect organization to make the call to. orgId will be in the following format "org-abc-xyz"
 	 * @param obj The SconPathRules to be updated on SteelConnect
 	 */
-	public SconObject update(String realmUrl, String orgID, SconObject obj) {
+	public static SconObject update(String realmUrl, String orgID, SconObject obj) {
 		if(obj==null) return null;
 		JsonObject jsonObj = null;
 		String url = realmUrl+API_PREFIX+"path_rule/"+obj.getId();
@@ -326,7 +297,7 @@ public class SconPathRulesAPI implements SconObjectAPI {
 		return obj;
 	}
 
-	@Override
+
 	/**
 	 * Deletes a Path Rule in a particular SteelConnect organization via the REST API
 	 * @return SconPathRules the object that was deleted
@@ -334,7 +305,7 @@ public class SconPathRulesAPI implements SconObjectAPI {
 	 * @param orgID The id of the SteelConnect organization to make the call to. orgId will be in the following format "org-abc-xyz"
 	 * @param obj The SconPathRules to be deleted on SteelConnect
 	 */
-	public SconObject delete(String realmUrl, String orgID, SconObject obj) {
+	public static SconObject delete(String realmUrl, String orgID, SconObject obj) {
 		
 		if(obj==null) return null;
 		
