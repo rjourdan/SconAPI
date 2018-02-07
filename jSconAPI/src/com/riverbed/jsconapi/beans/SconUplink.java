@@ -6,6 +6,12 @@ public class SconUplink extends SconObject{
 	 * 
 	 */
 	private static final long serialVersionUID = 7796531156047953500L;
+	
+	public static final String TYPE_DHCP = "dhcpc";
+	public static final String TYPE_STATIC = "static";
+	public static final String TYPE_DLS_PPOOE = "pppoe";
+	public static final String TYPE_DLS_PPPOA_PPtP = "pptp";
+	
 	private int qos_bw_up;
 	private int qos_up;
 	private int qos_bw_down;
@@ -14,6 +20,8 @@ public class SconUplink extends SconObject{
 	private String static_gw_v6;
 	private String static_ip_v6;
 	private String static_gw_v4;
+	
+	//ip_v4 should be in the following format :x.x.x.x/yy where yy is the netmask 
 	private String static_ip_v4;
 	private int uin;
 	private String node;
@@ -146,6 +154,18 @@ public class SconUplink extends SconObject{
 		this.site = site;
 		this.wan = wan;
 		this.setName(name);
+		this.qos_bw_up = 0;
+		this.qos_up = 0;
+		this.qos_bw_down = 0;
+		this.qos_down = 0;
+		this.static_gw_v6 = "";
+		this.static_ip_v6 = "";
+		this.static_gw_v4 = "";
+		this.static_ip_v4 = "";
+		this.node = "";
+		this.port = "";
+		this.vlan = 0;
+		this.type = "dhcpc";
 	}
 	/**
 	 * @param qos_bw_up

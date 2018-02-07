@@ -33,7 +33,7 @@ public class SconJsonOperations {
 	  */
 	 public static final JsonObject PostData (String link, JsonObject json) throws IOException{
 	    	URL url = null;
-	    	//System.out.println(json);
+	    	System.out.println(json);
 	    	HttpsURLConnection conn = null;
 			Authenticator.setDefault(new MyAuthenticator());
 			try {
@@ -46,7 +46,9 @@ public class SconJsonOperations {
 				conn.setDoOutput(true);
 			} catch (MalformedURLException e1) {
 				// TODO Auto-generated catch block
+				System.out.println("json "+json+"\n");
 				System.out.println(e1.toString());
+				
 			}
 			
 			JsonWriter writer = Json.createWriter(conn.getOutputStream());

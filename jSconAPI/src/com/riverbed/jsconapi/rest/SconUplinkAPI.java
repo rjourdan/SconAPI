@@ -103,8 +103,8 @@ public class SconUplinkAPI implements SconObjectAPI {
 		tempValue = jsonObj.get("link_speed");
 		if(!jsonObj.isNull("link_speed")) linkSpeed = Integer.parseInt(tempValue.toString());
 		
-		sconObj = new SconUplink(id, name, qos_bw_up, qos_up, qos_bw_down, qos_down, site, static_gw_v6, static_ip_v6, static_gw_v4, static_ip_v4, node, wan, port, vlan, uplinkType, auto_negotiation,linkSpeed);
-		
+		sconObj = new SconUplink(id,name,qos_bw_up, qos_up, qos_bw_down, qos_down, site, static_gw_v6,static_ip_v6, static_gw_v4, static_ip_v4, node, wan, port,vlan, uplinkType, auto_negotiation, linkSpeed); 
+				
 		return sconObj;
 	}
 

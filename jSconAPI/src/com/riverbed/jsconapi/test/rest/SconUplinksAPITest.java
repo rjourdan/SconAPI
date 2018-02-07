@@ -39,13 +39,14 @@ class SconUplinksAPITest {
 		site = (SconSite) SconSiteAPI.create(url, orgID, site);
 		wan = new SconWan("cable", "Xfinity cable", Boolean.TRUE);
 		wan = (SconWan)SconWanAPI.create(url, orgID, wan);	
+		System.out.println("wanID "+wan.getId());
 	}
 	
 	@BeforeEach
 	public void init() {
 		
 	
-		uplink = new SconUplink("comcast",site.getId(),null,null,"192.168.0.1","192.168.0.254",wan.getId(),"",0,"dhcpc",true,10000);
+		uplink = new SconUplink("comcast",site.getId(),"","","192.168.0.1","192.168.0.254/24",wan.getId(),"",0,SconUplink.TYPE_STATIC,true,10000);
 	}
 	
 	@AfterEach
@@ -80,15 +81,19 @@ class SconUplinksAPITest {
 	 */
 	@Test
 	void testGetAll() {
-		fail("Not yet implemented"); // TODO
-	}
+		uplink = (SconUplink)SconUplinkAPI.create(url, orgID, uplink);
+		assertNotNull(SconUplinkAPI.getAll(url, orgID));
+		SconUplinkAPI.delete(url, orgID, uplink);
+		}
 
 	/**
 	 * Test method for {@link com.riverbed.jsconapi.rest.SconUplinkAPI#create(java.lang.String, java.lang.String, com.riverbed.jsconapi.beans.SconObject)}.
 	 */
 	@Test
 	void testCreate() {
-		fail("Not yet implemented"); // TODO
+		uplink = (SconUplink)SconUplinkAPI.create(url, orgID, uplink);
+		assertNotNull(uplink);
+		SconUplinkAPI.delete(url, orgID, uplink);
 	}
 
 	/**
@@ -96,7 +101,12 @@ class SconUplinksAPITest {
 	 */
 	@Test
 	void testUpdate() {
-		fail("Not yet implemented"); // TODO
+		uplink = (SconUplink)SconUplinkAPI.create(url, orgID, uplink);
+		uplink.setName("vdsl");
+		SconUplink updatedUplink = (SconUplink)SconUplinkAPI.update(url, orgID, uplink);
+		assertEquals(updatedUplink.getId(),uplink.getId());
+		assertEquals(updatedUplink.getName(),uplink.getName());
+		SconUplinkAPI.delete(url, orgID, uplink);
 	}
 
 	/**
@@ -104,7 +114,10 @@ class SconUplinksAPITest {
 	 */
 	@Test
 	void testDelete() {
-		fail("Not yet implemented"); // TODO
+		uplink = (SconUplink)SconUplinkAPI.create(url, orgID, uplink);
+		String uplinkID = uplink.getId();
+		SconUplinkAPI.delete(url, orgID, uplink);
+		assertNull(SconUplinkAPI.get(url, uplinkID));
 	}
 
 }
