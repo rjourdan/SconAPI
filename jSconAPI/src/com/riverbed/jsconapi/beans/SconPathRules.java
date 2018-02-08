@@ -31,6 +31,9 @@ public class SconPathRules extends SconObject {
 	private String qos;
 	private String marking;
 	private String[] zones;
+	
+
+
 	private String[] sites;
 	private String[] path_preference;
 	private boolean active;
@@ -295,7 +298,7 @@ public class SconPathRules extends SconObject {
 
 
 
-	public SconPathRules(String id, String dsttype, String srctype, String qos, String marking, String[] zones, String uid,
+	public SconPathRules(String id, String name,String dsttype, String srctype, String qos, String marking, String[] zones, String uid,
 			String[] sites, String[] path_preference, boolean active, String dscp, String[] apps, String[] devices,
 			String tags, String[] users, String sapps) {
 		super();
@@ -335,10 +338,11 @@ public class SconPathRules extends SconObject {
 	 * @param tags
 	 * @param users
 	 */
-	public SconPathRules(String dsttype, String srctype, String qos, String marking, String[] zones, String uid,
+	public SconPathRules(String name,String dsttype, String srctype, String qos, String marking, String[] zones, String uid,
 			String[] sites, String[] path_preference, boolean active, String dscp, String[] apps, String[] devices,
 			String tags, String[] users) {
 		super();
+		this.setName(name);
 		this.dsttype = dsttype;
 		this.srctype = srctype;
 		this.qos = qos;
@@ -371,10 +375,11 @@ public class SconPathRules extends SconObject {
 	 * @param tags
 	 * @param users
 	 */
-	public SconPathRules(String dsttype, String srctype, String qos, String marking, String[] zones,
+	public SconPathRules(String name,String dsttype, String srctype, String qos, String marking, String[] zones,
 			String[] sites, String[] path_preference, boolean active, String dscp, String[] apps, String[] devices,
 			String tags, String[] users, String sapps) {
 		super();
+		this.setName(name);
 		this.dsttype = dsttype;
 		this.srctype = srctype;
 		this.qos = qos;
@@ -390,6 +395,40 @@ public class SconPathRules extends SconObject {
 		this.users = users;
 		this.sapps = sapps;
 	}
+
+
+	/**
+	 * @param dsttype
+	 * @param srctype
+	 * @param qos
+	 * @param marking
+	 * @param path_preference
+	 * @param active
+	 * @param apps
+	 */
+	public SconPathRules(String name,String dsttype, String srctype, String qos, String[] path_preference,
+			boolean active, String sapps) {
+		super();
+		this.setName(name);
+		this.dsttype = dsttype;
+		this.srctype = srctype;
+		this.qos = qos;
+		this.marking = "";
+		this.path_preference = path_preference;
+		this.active = active;
+		this.apps = new String[0];
+		
+		
+		this.zones = new String[0];
+		this.sites = new String[0];
+
+		this.dscp = "";
+		this.devices = new String[0];
+		this.tags = "";
+		this.users = new String[0];
+		this.sapps = sapps;
+	}
+
 
 
 	public SconPathRules() {

@@ -22,7 +22,7 @@ import com.riverbed.jsconapi.beans.SconSwitch;
 import com.riverbed.jsconapi.beans.SconUplink;
 import com.riverbed.jsconapi.beans.SconWan;
 import com.riverbed.jsconapi.beans.SconZone;
-import com.riverbed.jsconapi.util.StringModifier;
+import com.riverbed.jsconapi.util.SconUtil;
 
 public class SconObjectCallApi {
 	
@@ -62,7 +62,7 @@ public class SconObjectCallApi {
 			//System.out.println(jsonObj.toString()+"\n");
 			JsonValue tempValue;
 			String id = jsonObj.getString("id");
-			id = StringModifier.removeBrackets(id);
+			id = SconUtil.removeBrackets(id);
 			
 			if(type.equals(BROADCAST)){
 				String site = jsonObj.getString("site");
@@ -676,7 +676,7 @@ public class SconObjectCallApi {
 		System.out.println("jsonObj "+jsonObj.toString()+"\n");
 		JsonValue tempValue = jsonObj.get("id");
 		if(tempValue!=null){
-			String id = StringModifier.removeBrackets(tempValue.toString());
+			String id = SconUtil.removeBrackets(tempValue.toString());
 			obj.setId(id);
 		}
 		                   
@@ -716,7 +716,7 @@ public class SconObjectCallApi {
 		System.out.println("put jsonObj "+jsonObj.toString()+"\n");
 		JsonValue tempValue = jsonObj.get("id");
 		if(tempValue!=null){
-			String id = StringModifier.removeBrackets(tempValue.toString());
+			String id = SconUtil.removeBrackets(tempValue.toString());
 			obj.setId(id);
 		}
 		                   

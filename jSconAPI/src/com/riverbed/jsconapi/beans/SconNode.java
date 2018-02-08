@@ -41,6 +41,12 @@ public class SconNode extends SconObject{
 	 	private String[] ports;
 	 	private String site;
 	 	private String sitelink;
+	 	private String haMgmtIP;
+	 	private String haPartner;
+	 	private String haDedicatedPort;
+	 	private String haControlLink;
+	 	
+	 	
 		/**
 		 * @return the uplinks
 		 */
@@ -247,6 +253,56 @@ public class SconNode extends SconObject{
 			this.site = site;
 		}
 		
+		
+		
+		/**
+		 * @return the haMgmtIP
+		 */
+		public String getHaMgmtIP() {
+			return haMgmtIP;
+		}
+		/**
+		 * @param haMgmtIP the haMgmtIP to set
+		 */
+		public void setHaMgmtIP(String haMgmtIP) {
+			this.haMgmtIP = haMgmtIP;
+		}
+		/**
+		 * @return the haPartner
+		 */
+		public String getHaPartner() {
+			return haPartner;
+		}
+		/**
+		 * @param haPartner the haPartner to set
+		 */
+		public void setHaPartner(String haPartner) {
+			this.haPartner = haPartner;
+		}
+		/**
+		 * @return the haDedicatedPort
+		 */
+		public String getHaDedicatedPort() {
+			return haDedicatedPort;
+		}
+		/**
+		 * @param haDedicatedPort the haDedicatedPort to set
+		 */
+		public void setHaDedicatedPort(String haDedicatedPort) {
+			this.haDedicatedPort = haDedicatedPort;
+		}
+		/**
+		 * @return the haControlLink
+		 */
+		public String getHaControlLink() {
+			return haControlLink;
+		}
+		/**
+		 * @param haControlLink the haControlLink to set
+		 */
+		public void setHaControlLink(String haControlLink) {
+			this.haControlLink = haControlLink;
+		}
 		/**
 		 * @param uplinks
 		 * @param localAS

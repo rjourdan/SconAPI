@@ -12,7 +12,7 @@ import javax.json.JsonValue;
 
 import com.riverbed.jsconapi.beans.SconObject;
 import com.riverbed.jsconapi.beans.SconSite;
-import com.riverbed.jsconapi.util.StringModifier;
+import com.riverbed.jsconapi.util.SconUtil;
 
 /**
  * This class provides the primitives to create, update, get or delete Sites on SteelConnect. It will make the appropriate REST API calls to a given SCM organization.
@@ -37,7 +37,7 @@ public class SconSiteAPI implements SconObjectAPI {
 				
 		JsonValue tempValue;
 		String id = jsonObj.getString("id");
-		id = StringModifier.removeBrackets(id);
+		id = SconUtil.removeBrackets(id);
 		
 		String name = jsonObj.getString("name");
 		
@@ -168,7 +168,7 @@ public class SconSiteAPI implements SconObjectAPI {
 		JsonValue tempValue = jsonObj.get("id");
 		
 		if(tempValue!=null){
-			String id = StringModifier.removeBrackets(tempValue.toString());
+			String id = SconUtil.removeBrackets(tempValue.toString());
 			obj.setId(id);
 		}                   
 		else return null;
@@ -199,7 +199,7 @@ public class SconSiteAPI implements SconObjectAPI {
 		
 		JsonValue tempValue = jsonObj.get("id");
 		if(tempValue!=null){
-			String id = StringModifier.removeBrackets(tempValue.toString());
+			String id = SconUtil.removeBrackets(tempValue.toString());
 			obj.setId(id);
 		}
 		                   

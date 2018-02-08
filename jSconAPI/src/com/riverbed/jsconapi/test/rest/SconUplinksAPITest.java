@@ -32,20 +32,18 @@ class SconUplinksAPITest {
 	
 	@BeforeAll
 	public static void warmUp() {
-		System.out.println("warm up");
 		url = System.getenv("url");
 		orgID = System.getenv("orgID");
 		site = new SconSite("JunitTest", "Junit Testing", "680 Folsom Street", "San Francisco", "United States");
 		site = (SconSite) SconSiteAPI.create(url, orgID, site);
 		wan = new SconWan("cable", "Xfinity cable", Boolean.TRUE);
-		wan = (SconWan)SconWanAPI.create(url, orgID, wan);	
-		System.out.println("wanID "+wan.getId());
+		wan = (SconWan)SconWanAPI.create(url, orgID, wan);
+		System.out.println("warmup done "+wan.getId());
+
 	}
 	
 	@BeforeEach
 	public void init() {
-		
-	
 		uplink = new SconUplink("comcast",site.getId(),"","","192.168.0.1","192.168.0.254/24",wan.getId(),"",0,SconUplink.TYPE_STATIC,true,10000);
 	}
 	
@@ -84,7 +82,7 @@ class SconUplinksAPITest {
 		uplink = (SconUplink)SconUplinkAPI.create(url, orgID, uplink);
 		assertNotNull(SconUplinkAPI.getAll(url, orgID));
 		SconUplinkAPI.delete(url, orgID, uplink);
-		}
+	}
 
 	/**
 	 * Test method for {@link com.riverbed.jsconapi.rest.SconUplinkAPI#create(java.lang.String, java.lang.String, com.riverbed.jsconapi.beans.SconObject)}.

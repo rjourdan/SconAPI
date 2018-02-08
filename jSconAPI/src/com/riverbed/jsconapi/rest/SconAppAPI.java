@@ -13,7 +13,7 @@ import javax.json.JsonValue;
 import com.riverbed.jsconapi.beans.SconAP;
 import com.riverbed.jsconapi.beans.SconApp;
 import com.riverbed.jsconapi.beans.SconObject;
-import com.riverbed.jsconapi.util.StringModifier;
+import com.riverbed.jsconapi.util.SconUtil;
 
 /**
  *  This class provides the primitives to get Applications on SteelConnect. It will make the appropriate REST API calls to a given SCM organization.
@@ -37,7 +37,7 @@ public class SconAppAPI implements SconObjectAPI {
 				
 		JsonValue tempValue;
 		String id = jsonObj.getString("id");
-		id = StringModifier.removeBrackets(id);
+		id = SconUtil.removeBrackets(id);
 		
 		String desc="";
 		tempValue = jsonObj.get("desc");
@@ -50,7 +50,7 @@ public class SconAppAPI implements SconObjectAPI {
 		String name="";
 		tempValue = jsonObj.get("name");
 		if(tempValue!=null) name = tempValue.toString();
-		name = StringModifier.removeBrackets(name);
+		name = SconUtil.removeBrackets(name);
 		
 		sconObj = new SconApp(id, desc, dgrp,name);
 		return sconObj;

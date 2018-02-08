@@ -13,7 +13,7 @@ import javax.json.JsonValue;
 
 import com.riverbed.jsconapi.beans.SconObject;
 import com.riverbed.jsconapi.beans.SconPathRules;
-import com.riverbed.jsconapi.util.StringModifier;
+import com.riverbed.jsconapi.util.SconUtil;
 
 
 /**
@@ -33,10 +33,12 @@ public class SconPathRulesAPI implements SconObjectAPI {
 	public static SconObject convertFromJson(JsonObject jsonObj) {
 		SconObject sconObj = null;
 		if(jsonObj==null) return null;
+		
+		String name = jsonObj.getString("name");
 				
 		JsonValue tempValue;
 		String id = jsonObj.getString("id");
-		id = StringModifier.removeBrackets(id);
+		id = SconUtil.removeBrackets(id);
 		
 		String uid = jsonObj.getString("uid");
 		
@@ -96,7 +98,7 @@ public class SconPathRulesAPI implements SconObjectAPI {
 		tempValue = jsonObj.get("sapps");
 		if(tempValue!=null) sapps = tempValue.toString();
 		
-		sconObj = new SconPathRules(id, dsttype, srctype, qos, marking, zones, uid, sites, path_preference, active, dscp, apps, devices, tags, users,sapps);
+		sconObj = new SconPathRules(id, name, dsttype, srctype, qos, marking, zones, uid, sites, path_preference, active, dscp, apps, devices, tags, users,sapps);
 		return sconObj;
 	}
 
@@ -160,6 +162,7 @@ public class SconPathRulesAPI implements SconObjectAPI {
 		if(pathRule.isActive()) active = "1";
 		
 		jsonBuilder
+		.add("name",pathRule.getName())
 		.add("path_preference", pathPreferenceBuilder)
 		.add("dsttype",pathRule.getDsttype())
 		.add("srctype", pathRule.getSrctype())
@@ -168,7 +171,7 @@ public class SconPathRulesAPI implements SconObjectAPI {
 		.add("zones", zonesBuilder)
 		.add("active", active)
 		.add("sites", sitesBuilder)
-		.add("apps", appsBuilder)
+		//.add("apps", appsBuilder) not used at the moment
 		.add("dscp", pathRule.getDscp())
 		.add("devices", devicesBuilder)
 		.add("tags", pathRule.getTags())
@@ -258,7 +261,7 @@ public class SconPathRulesAPI implements SconObjectAPI {
 		JsonValue tempValue = jsonObj.get("id");
 		
 		if(tempValue!=null){
-			String id = StringModifier.removeBrackets(tempValue.toString());
+			String id = SconUtil.removeBrackets(tempValue.toString());
 			obj.setId(id);
 		}                   
 		else return null;
@@ -290,7 +293,7 @@ public class SconPathRulesAPI implements SconObjectAPI {
 		
 		JsonValue tempValue = jsonObj.get("id");
 		if(tempValue!=null){
-			String id = StringModifier.removeBrackets(tempValue.toString());
+			String id = SconUtil.removeBrackets(tempValue.toString());
 			obj.setId(id);
 		} else return null;
 		

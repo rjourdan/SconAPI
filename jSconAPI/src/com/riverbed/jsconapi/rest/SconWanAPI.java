@@ -14,7 +14,7 @@ import javax.json.JsonValue;
 
 import com.riverbed.jsconapi.beans.SconObject;
 import com.riverbed.jsconapi.beans.SconWan;
-import com.riverbed.jsconapi.util.StringModifier;
+import com.riverbed.jsconapi.util.SconUtil;
 
 
 /**
@@ -36,7 +36,7 @@ public class SconWanAPI implements SconObjectAPI {
 				
 		JsonValue tempValue;
 		String id = jsonObj.getString("id");
-		id = StringModifier.removeBrackets(id);
+		id = SconUtil.removeBrackets(id);
 		
 		String name = jsonObj.getString("name");
 		String[] uplinks = new String[0];
@@ -166,7 +166,7 @@ List<SconObject> objectList = new ArrayList<SconObject>();
 		JsonValue tempValue = jsonObj.get("id");
 		
 		if(tempValue!=null){
-			String id = StringModifier.removeBrackets(tempValue.toString());
+			String id = SconUtil.removeBrackets(tempValue.toString());
 			obj.setId(id);
 		}                   
 		else return null;
@@ -197,7 +197,7 @@ List<SconObject> objectList = new ArrayList<SconObject>();
 		
 		JsonValue tempValue = jsonObj.get("id");
 		if(tempValue!=null){
-			String id = StringModifier.removeBrackets(tempValue.toString());
+			String id = SconUtil.removeBrackets(tempValue.toString());
 			obj.setId(id);
 		}
 		                   
