@@ -40,8 +40,6 @@ public class SconPathRulesAPI implements SconObjectAPI {
 		String id = jsonObj.getString("id");
 		id = SconUtil.removeBrackets(id);
 		
-		String uid = jsonObj.getString("uid");
-		
 		String dsttype="";
 		tempValue = jsonObj.get("dsttype");
 		if(tempValue!=null) dsttype = tempValue.toString();
@@ -98,7 +96,7 @@ public class SconPathRulesAPI implements SconObjectAPI {
 		tempValue = jsonObj.get("sapps");
 		if(tempValue!=null) sapps = tempValue.toString();
 		
-		sconObj = new SconPathRules(id, name, dsttype, srctype, qos, marking, zones, uid, sites, path_preference, active, dscp, apps, devices, tags, users,sapps);
+		sconObj = new SconPathRules(id, name, dsttype, srctype, qos, marking, zones, sites, path_preference, active, dscp, apps, devices, tags, users,sapps);
 		return sconObj;
 	}
 

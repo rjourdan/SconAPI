@@ -8,7 +8,6 @@ import java.net.PasswordAuthentication;
 import java.net.URL;
 
 import javax.json.Json;
-import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonWriter;
 import javax.net.ssl.HttpsURLConnection;
@@ -155,7 +154,6 @@ public class SconJsonOperations {
 			//write!!!!!!!!!!
 			JsonWriter writer = Json.createWriter(conn.getOutputStream());
 			writer.writeObject(json);
-			System.out.println("Json Object pushed");
 			writer.close();
 		
 			JsonObject returnJson = Json.createReader(conn.getInputStream()).readObject();
@@ -163,11 +161,4 @@ public class SconJsonOperations {
 	    	return returnJson;
 	    }
 	    
-	 public static String[] jsonArrayToStringArray(JsonArray array){
-			String[] returnArray = new String[array.size()];
-			for(int i= 0;i<array.size();i++){
-				returnArray[i] = array.getJsonString(i).getString();
-			}
-			return returnArray;
-		}
 }

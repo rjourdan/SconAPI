@@ -298,7 +298,7 @@ public class SconPathRules extends SconObject {
 
 
 
-	public SconPathRules(String id, String name,String dsttype, String srctype, String qos, String marking, String[] zones, String uid,
+	public SconPathRules(String id, String name,String dsttype, String srctype, String qos, String marking, String[] zones, 
 			String[] sites, String[] path_preference, boolean active, String dscp, String[] apps, String[] devices,
 			String tags, String[] users, String sapps) {
 		super();
@@ -308,7 +308,6 @@ public class SconPathRules extends SconObject {
 		this.qos = qos;
 		this.marking = marking;
 		this.zones = zones;
-		this.setUid(uid);
 		this.sites = sites;
 		this.path_preference = path_preference;
 		this.active = active;

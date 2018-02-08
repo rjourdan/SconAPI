@@ -1,5 +1,7 @@
 package com.riverbed.jsconapi.util;
 
+import javax.json.JsonArray;
+
 public class SconUtil {
 	
 	public static String removeBrackets(String string){
@@ -44,5 +46,12 @@ public class SconUtil {
 		return str;
 	}
 
+	 public static String[] jsonArrayToStringArray(JsonArray array){
+			String[] returnArray = new String[array.size()];
+			for(int i= 0;i<array.size();i++){
+				returnArray[i] = array.getJsonString(i).getString();
+			}
+			return returnArray;
+		}
 	
 }

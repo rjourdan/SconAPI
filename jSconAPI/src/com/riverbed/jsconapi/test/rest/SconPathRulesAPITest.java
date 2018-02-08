@@ -62,7 +62,6 @@ class SconPathRulesAPITest {
 	
 	@AfterAll
 	public static void terminate() {
-		System.out.println("terminate");
 		SconWanAPI.delete(url, orgID, wan);
 		SconSiteAPI.delete(url, orgID, site);
 		System.clearProperty("url");
