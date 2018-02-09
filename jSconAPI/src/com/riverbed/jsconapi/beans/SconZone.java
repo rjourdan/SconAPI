@@ -19,6 +19,9 @@ public class SconZone extends SconObject{
     private String tag;
     private String tags;
     private SconOSPF ospfConfig;
+    public final static String ICMP_ALL = "all";
+    public final static String ICMP_PING = "ping";
+    public final static String ICMP_NONE = "none";
     
 	/**
 	 * @return the siteID
@@ -255,6 +258,27 @@ public class SconZone extends SconObject{
 		this.tag = tag;
 		this.tags = tags;
 		this.ospfConfig = ospfConfig;
+	}
+	
+	
+	
+	/**
+	 * @param siteID
+	 * @param name
+	 */
+	public SconZone(String siteID, String name) {
+		super();
+		this.siteID = siteID;
+		this.setName(name);
+		this.networks = new String[0];
+		this.mgmt ="";
+		this.icmp = SconZone.ICMP_ALL;
+		this.guest = "";
+		this.breakoutPreference = new String[0];
+		this.routes = new String[0];
+		this.bcasts = new String[0];
+		this.tags = "";
+		this.ospfConfig = new SconOSPF();
 	}
 	
 	

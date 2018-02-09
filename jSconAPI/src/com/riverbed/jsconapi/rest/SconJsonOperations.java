@@ -46,7 +46,7 @@ public class SconJsonOperations {
 				conn.setDoOutput(true);
 			} catch (MalformedURLException e1) {
 				// TODO Auto-generated catch block
-				System.out.println("json "+json+"\n");
+				//System.out.println("json "+json+"\n");
 				System.out.println(e1.toString());
 				
 			}
@@ -114,7 +114,6 @@ public class SconJsonOperations {
 				conn.setRequestProperty("Content-Type", "application/json");
 				conn.setDoOutput(true);
 				status = conn.getResponseCode();
-				System.out.println("delete\n");
 				
 			} catch (MalformedURLException e1) {
 				// TODO Auto-generated catch block
