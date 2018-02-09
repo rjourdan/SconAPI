@@ -18,6 +18,8 @@ public class SconZone extends SconObject{
     private String[] bcasts;
     private String tag;
     private String tags;
+    private SconOSPF ospfConfig;
+    
 	/**
 	 * @return the siteID
 	 */
@@ -138,6 +140,20 @@ public class SconZone extends SconObject{
 	public void setTags(String tags) {
 		this.tags = tags;
 	}
+	
+	
+	/**
+	 * @return the ospfConfig
+	 */
+	public SconOSPF getOspfConfig() {
+		return ospfConfig;
+	}
+	/**
+	 * @param ospfConfig the ospfConfig to set
+	 */
+	public void setOspfConfig(SconOSPF ospfConfig) {
+		this.ospfConfig = ospfConfig;
+	}
 	/**
 	 * 
 	 * @param name
@@ -180,15 +196,78 @@ public class SconZone extends SconObject{
 		this.tag = tag;
 		this.tags = tags;
 	}
+	
+	/**
+	 * @param siteID
+	 * @param networks
+	 * @param mgmt
+	 * @param icmp
+	 * @param guest
+	 * @param breakoutPreference
+	 * @param routes
+	 * @param bcasts
+	 * @param tag
+	 * @param tags
+	 * @param ospfConfig
+	 */
+	public SconZone(String siteID, String[] networks, String mgmt, String icmp, String guest,
+			String[] breakoutPreference, String[] routes, String[] bcasts, String tag, String tags,
+			SconOSPF ospfConfig) {
+		super();
+		this.siteID = siteID;
+		this.networks = networks;
+		this.mgmt = mgmt;
+		this.icmp = icmp;
+		this.guest = guest;
+		this.breakoutPreference = breakoutPreference;
+		this.routes = routes;
+		this.bcasts = bcasts;
+		this.tag = tag;
+		this.tags = tags;
+		this.ospfConfig = ospfConfig;
+	}
+	
+	/**
+	 * @param siteID
+	 * @param networks
+	 * @param mgmt
+	 * @param icmp
+	 * @param guest
+	 * @param breakoutPreference
+	 * @param routes
+	 * @param bcasts
+	 * @param tag
+	 * @param tags
+	 * @param ospfConfig
+	 */
+	public SconZone(String id,String siteID, String name,String[] networks, String mgmt, String icmp, String guest,
+			String[] breakoutPreference, String[] routes, String[] bcasts, String tag, String tags,
+			SconOSPF ospfConfig) {
+		super();
+		this.siteID = siteID;
+		this.networks = networks;
+		this.mgmt = mgmt;
+		this.icmp = icmp;
+		this.guest = guest;
+		this.breakoutPreference = breakoutPreference;
+		this.routes = routes;
+		this.bcasts = bcasts;
+		this.tag = tag;
+		this.tags = tags;
+		this.ospfConfig = ospfConfig;
+	}
+	
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
+	 * @return
 	 */
 	@Override
 	public String toString() {
 		return "SconZone [siteID=" + siteID + ", networks=" + Arrays.toString(networks) + ", mgmt=" + mgmt + ", icmp="
 				+ icmp + ", guest=" + guest + ", breakoutPreference=" + Arrays.toString(breakoutPreference)
 				+ ", routes=" + Arrays.toString(routes) + ", bcasts=" + Arrays.toString(bcasts) + ", tag=" + tag
-				+ ", tags=" + tags + "]";
+				+ ", tags=" + tags + ", ospfConfig=" + ospfConfig + "]";
 	}
 	
 	

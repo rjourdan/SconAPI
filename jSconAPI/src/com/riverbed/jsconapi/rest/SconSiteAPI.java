@@ -52,13 +52,13 @@ public class SconSiteAPI implements SconObjectAPI {
 		String countryCode = jsonObj.getString("country");
 		
 		String[] uplinks = new String[0];
-		if(!jsonObj.isNull("uplinks")) uplinks = SconObjectCallApi.jsonArrayToStringArray(jsonObj.getJsonArray("uplinks"));
+		if(!jsonObj.isNull("uplinks")) uplinks = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("uplinks"));
 		
 		String timezone = jsonObj.getString("timezone");
 		
 		String[] networks = new String[0];
 		if(!jsonObj.isNull("networks"))
-		 networks = SconObjectCallApi.jsonArrayToStringArray(jsonObj.getJsonArray("networks"));
+		 networks = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("networks"));
 		
 		int size = 0;
 		if(!jsonObj.isNull("size")) {

@@ -42,13 +42,6 @@ public class SconObjectCallApi {
 	//it is used to build the URL and concatenated with baseUrl. To be modified when new API are released. 
 	private static final String API_PREFIX = "/api/scm.config/1.0/";
 	
-	public static String[] jsonArrayToStringArray(JsonArray array){
-		String[] returnArray = new String[array.size()];
-		for(int i= 0;i<array.size();i++){
-			returnArray[i] = array.getJsonString(i).getString();
-		}
-		return returnArray;
-	}
 	
 	/**
 	 * 
@@ -98,10 +91,10 @@ public class SconObjectCallApi {
 				if(!jsonObj.isNull("serial")) disableStp = jsonObj.getString("disable_stp");
 				
 				String[] uplinks = new String[0];
-				if(!jsonObj.isNull("uplinks")) uplinks = jsonArrayToStringArray(jsonObj.getJsonArray("uplinks"));
+				if(!jsonObj.isNull("uplinks")) uplinks = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("uplinks"));
 				
 				String[] radios = new String[0];
-				if(!jsonObj.isNull("radios")) radios = jsonArrayToStringArray(jsonObj.getJsonArray("radios"));
+				if(!jsonObj.isNull("radios")) radios = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("radios"));
 				
 				String location = "";
 				tempValue = jsonObj.get("location");
@@ -120,7 +113,7 @@ public class SconObjectCallApi {
 				if(!jsonObj.isNull("inventory_version_cc")) inventoryVersionCC = jsonObj.getString("inventory_version_cc");
 				
 				String[] ports = new String[0];
-				if(!jsonObj.isNull("ports")) ports = jsonArrayToStringArray(jsonObj.getJsonArray("ports"));
+				if(!jsonObj.isNull("ports")) ports = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("ports"));
 				
 				String sitelink = "0";
 				tempValue = jsonObj.get("sitelink");
@@ -151,10 +144,10 @@ public class SconObjectCallApi {
 				if(!jsonObj.isNull("serial")) disableStp = jsonObj.getString("disable_stp");
 				
 				String[] uplinks = new String[0];
-				if(!jsonObj.isNull("uplinks")) uplinks = jsonArrayToStringArray(jsonObj.getJsonArray("uplinks"));
+				if(!jsonObj.isNull("uplinks")) uplinks = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("uplinks"));
 				
 				String[] radios = new String[0];
-				if(!jsonObj.isNull("radios")) radios = jsonArrayToStringArray(jsonObj.getJsonArray("radios"));
+				if(!jsonObj.isNull("radios")) radios = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("radios"));
 				
 				String location = "";
 				tempValue = jsonObj.get("location");
@@ -173,7 +166,7 @@ public class SconObjectCallApi {
 				if(!jsonObj.isNull("inventory_version_cc")) inventoryVersionCC = jsonObj.getString("inventory_version_cc");
 				
 				String[] ports = new String[0];
-				if(!jsonObj.isNull("ports")) ports = jsonArrayToStringArray(jsonObj.getJsonArray("ports"));
+				if(!jsonObj.isNull("ports")) ports = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("ports"));
 				
 				String sitelink = "0";
 				tempValue = jsonObj.get("sitelink");
@@ -204,10 +197,10 @@ public class SconObjectCallApi {
 					if(!jsonObj.isNull("serial")) disableStp = jsonObj.getString("disable_stp");
 					
 					String[] uplinks = new String[0];
-					if(!jsonObj.isNull("uplinks")) uplinks = jsonArrayToStringArray(jsonObj.getJsonArray("uplinks"));
+					if(!jsonObj.isNull("uplinks")) uplinks = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("uplinks"));
 					
 					String[] radios = new String[0];
-					if(!jsonObj.isNull("radios")) radios = jsonArrayToStringArray(jsonObj.getJsonArray("radios"));
+					if(!jsonObj.isNull("radios")) radios = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("radios"));
 					
 					String location = "";
 					tempValue = jsonObj.get("location");
@@ -226,7 +219,7 @@ public class SconObjectCallApi {
 					if(!jsonObj.isNull("inventory_version_cc")) inventoryVersionCC = jsonObj.getString("inventory_version_cc");
 					
 					String[] ports = new String[0];
-					if(!jsonObj.isNull("ports")) ports = jsonArrayToStringArray(jsonObj.getJsonArray("ports"));
+					if(!jsonObj.isNull("ports")) ports = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("ports"));
 					
 					String sitelink = "0";
 					tempValue = jsonObj.get("sitelink");
@@ -273,11 +266,11 @@ public class SconObjectCallApi {
 				String city = jsonObj.getString("city");
 				String countryCode = jsonObj.getString("country");
 				String[] uplinks = new String[0];
-				if(!jsonObj.isNull("uplinks")) uplinks = jsonArrayToStringArray(jsonObj.getJsonArray("uplinks"));
+				if(!jsonObj.isNull("uplinks")) uplinks = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("uplinks"));
 				String timezone = jsonObj.getString("timezone");
 				String[] networks = new String[0];
 				if(!jsonObj.isNull("networks"))
-				 networks = jsonArrayToStringArray(jsonObj.getJsonArray("networks"));
+				 networks = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("networks"));
 				int size = 0;
 				if(!jsonObj.isNull("size")) size = Integer.parseInt(jsonObj.getString("size"));
 				sconObj = new SconSite(id, name, longName, address, city, countryCode, uplinks, timezone, networks, size);
@@ -357,11 +350,11 @@ public class SconObjectCallApi {
 			if(type.equals(WAN)){
 				String name = jsonObj.getString("name");
 				String[] uplinks = new String[0];
-				if(!jsonObj.isNull("uplinks")) uplinks = jsonArrayToStringArray(jsonObj.getJsonArray("uplinks"));
+				if(!jsonObj.isNull("uplinks")) uplinks = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("uplinks"));
 				
 				String[] networks = new String[0];
 				if(!jsonObj.isNull("nets"))
-				 networks = jsonArrayToStringArray(jsonObj.getJsonArray("nets"));
+				 networks = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("nets"));
 				
 				String longName="";
 				tempValue = jsonObj.get("longname");
@@ -378,7 +371,7 @@ public class SconObjectCallApi {
 				
 				String[] breakout_sites = new String[0];
 				if(!jsonObj.isNull("breakout_sites"))
-					breakout_sites = jsonArrayToStringArray(jsonObj.getJsonArray("breakout_sites"));
+					breakout_sites = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("breakout_sites"));
 				
 				//sconObj = new SconWan(id, name, uplinks, networks, longName, internet, sitelink, breakout, breakout_sites);
 			}
@@ -389,7 +382,7 @@ public class SconObjectCallApi {
 				
 				String[] networks = new String[0];
 				if(!jsonObj.isNull("networks"))
-				 networks = jsonArrayToStringArray(jsonObj.getJsonArray("networks"));
+				 networks = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("networks"));
 				
 				String mgmt="";
 				tempValue = jsonObj.get("mgmt");
@@ -405,15 +398,15 @@ public class SconObjectCallApi {
 				
 				String[] breakoutPreference = new String[0];
 				if(!jsonObj.isNull("breakout_preference"))
-					breakoutPreference = jsonArrayToStringArray(jsonObj.getJsonArray("breakout_preference"));
+					breakoutPreference = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("breakout_preference"));
 				
 				String[] routes = new String[0];
 				if(!jsonObj.isNull("routes"))
-				 routes = jsonArrayToStringArray(jsonObj.getJsonArray("routes"));
+				 routes = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("routes"));
 				
 				String[] bcasts = new String[0];
 				if(!jsonObj.isNull("bcasts"))
-					bcasts = jsonArrayToStringArray(jsonObj.getJsonArray("bcasts"));
+					bcasts = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("bcasts"));
 				
 				String tag="";
 				tempValue = jsonObj.get("tag");

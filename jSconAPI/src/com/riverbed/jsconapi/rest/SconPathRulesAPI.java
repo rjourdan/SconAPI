@@ -58,15 +58,15 @@ public class SconPathRulesAPI implements SconObjectAPI {
 		
 		String[] zones = new String[0];
 		if(!jsonObj.isNull("zones"))
-		 zones = SconObjectCallApi.jsonArrayToStringArray(jsonObj.getJsonArray("zones"));
+		 zones = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("zones"));
 		
 		String[] sites = new String[0];
 		if(!jsonObj.isNull("sites"))
-		 sites = SconObjectCallApi.jsonArrayToStringArray(jsonObj.getJsonArray("sites"));
+		 sites = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("sites"));
 		
 		String[] path_preference = new String[0];
 		if(!jsonObj.isNull("path_preference"))
-			path_preference = SconObjectCallApi.jsonArrayToStringArray(jsonObj.getJsonArray("path_preference"));
+			path_preference = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("path_preference"));
 		
 		boolean active = false;
 		String activeString = jsonObj.get("active").toString();
@@ -78,11 +78,11 @@ public class SconPathRulesAPI implements SconObjectAPI {
 		
 		String[] apps = new String[0];
 		if(!jsonObj.isNull("apps"))
-		 apps = SconObjectCallApi.jsonArrayToStringArray(jsonObj.getJsonArray("apps"));
+		 apps = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("apps"));
 		
 		String[] devices = new String[0];
 		if(!jsonObj.isNull("devices"))
-			devices = SconObjectCallApi.jsonArrayToStringArray(jsonObj.getJsonArray("devices"));
+			devices = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("devices"));
 		
 		String tags="";
 		tempValue = jsonObj.get("tags");
@@ -90,7 +90,7 @@ public class SconPathRulesAPI implements SconObjectAPI {
 		
 		String[] users = new String[0];
 		if(!jsonObj.isNull("users"))
-			users = SconObjectCallApi.jsonArrayToStringArray(jsonObj.getJsonArray("users"));
+			users = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("users"));
 
 		String sapps="";
 		tempValue = jsonObj.get("sapps");

@@ -40,11 +40,11 @@ public class SconWanAPI implements SconObjectAPI {
 		
 		String name = jsonObj.getString("name");
 		String[] uplinks = new String[0];
-		if(!jsonObj.isNull("uplinks")) uplinks = SconObjectCallApi.jsonArrayToStringArray(jsonObj.getJsonArray("uplinks"));
+		if(!jsonObj.isNull("uplinks")) uplinks = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("uplinks"));
 		
 		String[] networks = new String[0];
 		if(!jsonObj.isNull("nets"))
-		 networks = SconObjectCallApi.jsonArrayToStringArray(jsonObj.getJsonArray("nets"));
+		 networks = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("nets"));
 		
 		String longName="";
 		tempValue = jsonObj.get("longname");
@@ -64,7 +64,7 @@ public class SconWanAPI implements SconObjectAPI {
 		
 		String[] breakout_sites = new String[0];
 		if(!jsonObj.isNull("breakout_sites"))
-			breakout_sites = SconObjectCallApi.jsonArrayToStringArray(jsonObj.getJsonArray("breakout_sites"));
+			breakout_sites = SconUtil.jsonArrayToStringArray(jsonObj.getJsonArray("breakout_sites"));
 		
 		sconObj = new SconWan(id, name, uplinks, networks, longName, internet, sitelink, breakout, breakout_sites);
 		return sconObj;
