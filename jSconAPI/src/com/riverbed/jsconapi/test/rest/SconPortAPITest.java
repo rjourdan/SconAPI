@@ -43,7 +43,7 @@ class SconPortAPITest {
 	 */
 	@Test
 	void testGet() {
-		fail("Not yet implemented"); // TODO
+		
 	}
 
 	/**

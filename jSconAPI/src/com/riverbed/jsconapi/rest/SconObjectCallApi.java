@@ -252,7 +252,7 @@ public class SconObjectCallApi {
 				tempValue = jsonObj.get("switch_id");
 				if(!jsonObj.isNull("switch_id")) switchId = jsonObj.getString("switch_id");
 				
-				sconObj = new SconPort(id,portId, node, typePort, zone, mac, switchId);
+				//sconObj = new SconPort(id,portId, node, typePort, zone, mac, switchId);
 			}
 			
 			if(type.equals(SITE)){
