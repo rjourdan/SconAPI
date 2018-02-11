@@ -15,7 +15,6 @@ import javax.json.JsonValue;
 
 import com.riverbed.jsconapi.beans.SconObject;
 import com.riverbed.jsconapi.beans.SconPort;
-import com.riverbed.jsconapi.beans.SconWan;
 import com.riverbed.jsconapi.util.SconUtil;
 
 /**
@@ -33,7 +32,6 @@ public class SconPortAPI implements SconObjectAPI {
 	public static SconObject convertFromJson(JsonObject jsonObj) {
 		SconPort port = new SconPort();
 		
-		String tempString = null;
 		if(jsonObj==null) return null;
 		
 		

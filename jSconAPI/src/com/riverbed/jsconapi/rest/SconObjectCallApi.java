@@ -119,7 +119,7 @@ public class SconObjectCallApi {
 				tempValue = jsonObj.get("sitelink");
 				if(!jsonObj.isNull("sitelink")) sitelink = jsonObj.getString("sitelink");
 				
-				sconObj = new SconNode (id, uplinks, localAs, model, radios, simulated, routerId, disableStp, location, serial, license, inventoryVersionCC, ports, site, sitelink);
+				//sconObj = new SconNode (id, uplinks, localAs, model, radios, simulated, routerId, disableStp, location, serial, license, inventoryVersionCC, ports, site, sitelink);
 			}
 			if(type.equals(ACCESSPOINT)){
 				
@@ -172,7 +172,7 @@ public class SconObjectCallApi {
 				tempValue = jsonObj.get("sitelink");
 				if(!jsonObj.isNull("sitelink")) sitelink = jsonObj.getString("sitelink");
 				
-				sconObj = new SconAP (id, uplinks, localAs, model, radios, simulated, routerId, disableStp, location, serial, license, inventoryVersionCC, ports, site, sitelink);
+				//sconObj = new SconAP (id, uplinks, localAs, model, radios, simulated, routerId, disableStp, location, serial, license, inventoryVersionCC, ports, site, sitelink);
 			}
 				if(type.equals(SWITCH)){
 					
@@ -225,7 +225,7 @@ public class SconObjectCallApi {
 					tempValue = jsonObj.get("sitelink");
 					if(!jsonObj.isNull("sitelink")) sitelink = jsonObj.getString("sitelink");
 					
-					sconObj = new SconSwitch (id, uplinks, localAs, model, radios, simulated, routerId, disableStp, location, serial, license, inventoryVersionCC, ports, site, sitelink);
+					//sconObj = new SconSwitch (id, uplinks, localAs, model, radios, simulated, routerId, disableStp, location, serial, license, inventoryVersionCC, ports, site, sitelink);
 				}
 			if(type.equals(PORT)){
 				String portId = "";

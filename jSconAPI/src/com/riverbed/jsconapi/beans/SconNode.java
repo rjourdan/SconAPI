@@ -1,6 +1,5 @@
 package com.riverbed.jsconapi.beans;
 
-import java.util.Arrays;
 
 public class SconNode extends SconObject{
 	
@@ -31,22 +30,24 @@ public class SconNode extends SconObject{
 	 	private String localAS;
 	 	private String model;
 	 	private String[] radios;
-	 	private String simulated;
+	 	private boolean simulated;
 	 	private String routerId;
-	 	private String disableStp;
+	 	private boolean disableStp;
 	 	private String location;
 	 	private String serial;
 	 	private String license;
 	 	private String inventoryVersionCC;
 	 	private String[] ports;
 	 	private String site;
-	 	private String sitelink;
+	 	private boolean sitelink;
 	 	private String haMgmtIP;
 	 	private String haPartner;
 	 	private String haDedicatedPort;
 	 	private String haControlLink;
-	 	
-	 	
+	 	private boolean scm_managed_vsh;
+	 	private boolean ha_clone_mac;
+         
+    	
 		/**
 		 * @return the uplinks
 		 */
@@ -98,20 +99,24 @@ public class SconNode extends SconObject{
 		/**
 		 * @return the simulated
 		 */
-		public String getSimulated() {
-			return simulated;
-		}
-		/**
-		 * @param simulated the simulated to set
-		 */
-		public void setSimulated(String simulated) {
-			this.simulated = simulated;
-		}
+		
 		/**
 		 * @return the routerId
 		 */
 		public String getRouterId() {
 			return routerId;
+		}
+		/**
+		 * @return the simulated
+		 */
+		public boolean isSimulated() {
+			return simulated;
+		}
+		/**
+		 * @param simulated the simulated to set
+		 */
+		public void setSimulated(boolean simulated) {
+			this.simulated = simulated;
 		}
 		/**
 		 * @param routerId the routerId to set
@@ -122,20 +127,24 @@ public class SconNode extends SconObject{
 		/**
 		 * @return the disableStp
 		 */
-		public String getDisableStp() {
-			return disableStp;
-		}
-		/**
-		 * @param disableStp the disableStp to set
-		 */
-		public void setDisableStp(String disableStp) {
-			this.disableStp = disableStp;
-		}
+		
 		/**
 		 * @return the location
 		 */
 		public String getLocation() {
 			return location;
+		}
+		/**
+		 * @return the disableStp
+		 */
+		public boolean isDisableStp() {
+			return disableStp;
+		}
+		/**
+		 * @param disableStp the disableStp to set
+		 */
+		public void setDisableStp(boolean disableStp) {
+			this.disableStp = disableStp;
 		}
 		/**
 		 * @param location the location to set
@@ -203,20 +212,21 @@ public class SconNode extends SconObject{
 		public void setSite(String site) {
 			this.site = site;
 		}
+		
+		
+		
 		/**
 		 * @return the sitelink
 		 */
-		public String getSitelink() {
+		public boolean isSitelink() {
 			return sitelink;
 		}
 		/**
 		 * @param sitelink the sitelink to set
 		 */
-		public void setSitelink(String sitelink) {
+		public void setSitelink(boolean sitelink) {
 			this.sitelink = sitelink;
 		}
-		
-		
 		/**
 		 * 
 		 * @param name
@@ -224,7 +234,7 @@ public class SconNode extends SconObject{
 		 * @param simulated
 		 * @param site
 		 */
-		public SconNode(String name,String model, String simulated, String site,String serial) {
+		public SconNode(String name,String model, boolean simulated, String site,String serial) {
 			super();
 			this.setName(name);
 			this.model = model;
@@ -243,7 +253,7 @@ public class SconNode extends SconObject{
 		 * @param site
 		 */
 		
-		public SconNode(String id,String[] uplinks, String model, String simulated, String[] ports, String site) {
+		public SconNode(String id,String[] uplinks, String model, boolean simulated, String[] ports, String site) {
 			super();
 			this.setId(id);
 			this.uplinks = uplinks;
@@ -304,6 +314,32 @@ public class SconNode extends SconObject{
 			this.haControlLink = haControlLink;
 		}
 		/**
+		 * @return the scm_managed_vsh
+		 */
+		public boolean isScm_managed_vsh() {
+			return scm_managed_vsh;
+		}
+		/**
+		 * @param scm_managed_vsh the scm_managed_vsh to set
+		 */
+		public void setScm_managed_vsh(boolean scm_managed_vsh) {
+			this.scm_managed_vsh = scm_managed_vsh;
+		}
+		/**
+		 * @return the ha_clone_mac
+		 */
+		public boolean isHa_clone_mac() {
+			return ha_clone_mac;
+		}
+		/**
+		 * @param ha_clone_mac the ha_clone_mac to set
+		 */
+		public void setHa_clone_mac(boolean ha_clone_mac) {
+			this.ha_clone_mac = ha_clone_mac;
+		}
+		
+		
+		/**
 		 * @param uplinks
 		 * @param localAS
 		 * @param model
@@ -318,12 +354,19 @@ public class SconNode extends SconObject{
 		 * @param ports
 		 * @param site
 		 * @param sitelink
+		 * @param haMgmtIP
+		 * @param haPartner
+		 * @param haDedicatedPort
+		 * @param haControlLink
+		 * @param scm_managed_vsh
+		 * @param ha_clone_mac
 		 */
-		public SconNode(String id,String[] uplinks, String localAS, String model, String[] radios, String simulated,
-				String routerId, String disableStp, String location, String serial, String license,
-				String inventoryVersionCC, String[] ports, String site, String sitelink) {
+		public SconNode(String[] uplinks, String localAS, String model, String[] radios, boolean simulated,
+				String routerId, boolean disableStp, String location, String serial, String license,
+				String inventoryVersionCC, String[] ports, String site, boolean sitelink, String haMgmtIP,
+				String haPartner, String haDedicatedPort, String haControlLink, boolean scm_managed_vsh,
+				boolean ha_clone_mac) {
 			super();
-			this.setId(id);
 			this.uplinks = uplinks;
 			this.localAS = localAS;
 			this.model = model;
@@ -338,17 +381,19 @@ public class SconNode extends SconObject{
 			this.ports = ports;
 			this.site = site;
 			this.sitelink = sitelink;
+			this.haMgmtIP = haMgmtIP;
+			this.haPartner = haPartner;
+			this.haDedicatedPort = haDedicatedPort;
+			this.haControlLink = haControlLink;
+			this.scm_managed_vsh = scm_managed_vsh;
+			this.ha_clone_mac = ha_clone_mac;
+		}
+		/**
+		 * 
+		 */
+		public SconNode() {
+			super();
 		}
 		
-		/* (non-Javadoc)
-		 * @see java.lang.Object#toString()
-		 */
-		@Override
-		public String toString() {
-			return "SconNode [uplinks=" + Arrays.toString(uplinks) + ", localAS=" + localAS + ", model=" + model
-					+ ", radios=" + Arrays.toString(radios) + ", simulated=" + simulated + ", routerId=" + routerId
-					+ ", disableStp=" + disableStp + ", location=" + location + ", serial=" + serial + ", license="
-					+ license + ", inventoryVersionCC=" + inventoryVersionCC + ", ports=" + Arrays.toString(ports)
-					+ ", site=" + site + ", sitelink=" + sitelink + ", getId()=" + getId() + "\n]";
-		}
+		
 }
