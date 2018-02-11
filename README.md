@@ -11,18 +11,18 @@ Feel free to fork and enhance the current implementation.
 Should you want to add a dependency to your project via Maven, you can use jitpack.io and add the below
 
 Add repository first
-<code>
-&lt;repository&gt;
-    &lt;id&gt;jitpack.io&lt;/id&gt;
-    &lt;url&gt;https://jitpack.io&lt;/url&gt;
-&lt;/repository&gt;
+<code><p>
+&lt;repository&gt;<p>
+    &lt;id&gt;jitpack.io&lt;/id&gt;<p>
+    &lt;url&gt;https://jitpack.io &lt;/url&gt;<p>
+&lt;/repository&gt;<p>
 </code>
-
+<p>
 Then dd dependency
 <code>
-&lt;dependency&gt;
-    &lt;groupId&gt;com.github.rjourdan&lt;/groupId&gt;
-    &lt;artifactId&gt;SconAPI&lt;/artifactId&gt;
-    &lt;version&gt;1.0&lt;/version&gt;
-&lt;/dependency&gt;
+<p>&lt;dependency&gt;
+   <p> &lt;groupId&gt;com.github.rjourdan&lt;/groupId&gt;
+    <p>&lt;artifactId&gt;SconAPI&lt;/artifactId&gt;
+    <p>&lt;version&gt;1.0&lt;/version&gt;
+<p>&lt;/dependency&gt;
 </code>
