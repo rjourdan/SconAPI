@@ -12,17 +12,17 @@ Should you want to add a dependency to your project via Maven, you can use jitpa
 
 Add repository first
 <code>
-<repository>
-    <id>jitpack.io</id>
-    <url>https://jitpack.io</url>
-</repository>
+&lt;repository&gt;
+    &lt;id&gt;jitpack.io&lt;/id&gt;
+    &lt;url&gt;https://jitpack.io&lt;/url&gt;
+&lt;/repository&gt;
 </code>
 
 Then dd dependency
 <code>
-<dependency>
-    <groupId>com.github.rjourdan</groupId>
-    <artifactId>SconAPI</artifactId>
-    <version>1.0</version>
-</dependency>
+&lt;dependency&gt;
+    &lt;groupId&gt;com.github.rjourdan&lt;/groupId&gt;
+    &lt;artifactId&gt;SconAPI&lt;/artifactId&gt;
+    &lt;version&gt;1.0&lt;/version&gt;
+&lt;/dependency&gt;
 </code>
