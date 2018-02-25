@@ -1,0 +1,4 @@
+com.riverbed.jsconapi.beans
+com.riverbed.jsconapi.rest
+com.riverbed.jsconapi.test.rest
+com.riverbed.jsconapi.util

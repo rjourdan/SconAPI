@@ -172,14 +172,14 @@ public class SconRESTOperations {
 	    }
 	 
 	 /**
-	  * Downloads a SteelConnect VM appliance on a local directory
-	  * @param link The link to download the SteelConnect VM from. 
+	  * Downloads a file from SteelConnect Manager on a local directory. It can be a VM appliance image or support package
+	  * @param link The link to download the file from. 
 	  * @param parameters HTTP Parameters for the GET operation
-	  * @param filepath filename + path where to save the VM image
+	  * @param filepath filename + path where to save the file
 	  * @return boolean true if the operation was successful
 	  * @throws IOException
 	  */
-	 public static final boolean DownloadVM(String link,HashMap<String, String> parameters, String filepath) throws IOException{
+	 public static final boolean DownloadFile(String link,HashMap<String, String> parameters, String filepath) throws IOException{
 		int buffer_size = 4096;
 	    	URL url = null;
 	    	int status;
