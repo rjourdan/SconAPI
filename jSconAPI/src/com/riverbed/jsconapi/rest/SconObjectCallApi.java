@@ -479,7 +479,7 @@ public class SconObjectCallApi {
 			
 			JsonObject jsonObj = null;
 		try {
-			jsonObj = SconJsonOperations.GetData(url);
+			jsonObj = SconRESTOperations.GetData(url);
 			if(jsonObj!=null){
 				result = convertFromJson(jsonObj,NODE);
 			}
@@ -494,7 +494,7 @@ public class SconObjectCallApi {
 			
 			JsonObject jsonObj = null;
 		try {
-			jsonObj = SconJsonOperations.GetData(url);
+			jsonObj = SconRESTOperations.GetData(url);
 			if(jsonObj!=null){
 				result = convertFromJson(jsonObj,PORT);
 			}
@@ -587,7 +587,7 @@ public class SconObjectCallApi {
 		String url = baseUrl + API_PREFIX +"org/"+orgID+types;
 		JsonObject jsonObj = null;
 		try {
-			jsonObj = SconJsonOperations.GetData(url);
+			jsonObj = SconRESTOperations.GetData(url);
 			if(jsonObj!=null){
 				JsonArray array = jsonObj.getJsonArray("items");
 				for(int i = 0 ; i < array.size() ; i++){
@@ -665,7 +665,7 @@ public class SconObjectCallApi {
 			link = link.concat("/ssids");			
 		}
 		jsonObj = SconJsonObjectBuilder.buildSconJsonObject(obj);
-		jsonObj = SconJsonOperations.PostData(link, jsonObj);		
+		jsonObj = SconRESTOperations.PostData(link, jsonObj);		
 		System.out.println("jsonObj "+jsonObj.toString()+"\n");
 		JsonValue tempValue = jsonObj.get("id");
 		if(tempValue!=null){
@@ -705,7 +705,7 @@ public class SconObjectCallApi {
 		}
 		
 		jsonObj = SconJsonObjectBuilder.buildSconJsonObject(obj);
-		jsonObj = SconJsonOperations.PutData(link, jsonObj);		
+		jsonObj = SconRESTOperations.PutData(link, jsonObj);		
 		System.out.println("put jsonObj "+jsonObj.toString()+"\n");
 		JsonValue tempValue = jsonObj.get("id");
 		if(tempValue!=null){
@@ -728,7 +728,7 @@ public class SconObjectCallApi {
 			String link = url.concat(id);
 			System.out.println("link "+link+"\n");
 			try {
-				SconJsonOperations.DeleteData(link);
+				SconRESTOperations.DeleteData(link);
 			} catch (IOException e) {
 				return false;
 			}
@@ -916,34 +916,34 @@ public class SconObjectCallApi {
 				e.printStackTrace();
 			}
 			//create 2 48 ports switches + 2 gateways sdi330
-			try{
-				SconSwitch switch48 = new SconSwitch("", SconNode.SDI_S48, "1", siteID,"");
-				createSconObject(baseUrl,orgID,switch48);
-			} catch (IOException e) {
-			// TODO Auto-generated catch block
-				System.out.println(e.getMessage());
-			}
-			try{
-				SconSwitch switch48 = new SconSwitch("", SconNode.SDI_S48, "1", siteID,"");
-				createSconObject(baseUrl,orgID,switch48);
-			} catch (IOException e) {
-			// TODO Auto-generated catch block
-				System.out.println(e.getMessage());
-			}
-			try{
-				SconSwitch sdi130 = new SconSwitch("", SconNode.SDI_130, "1", siteID,"");
-				createSconObject(baseUrl,orgID,sdi130);
-			} catch (IOException e) {
-			// TODO Auto-generated catch block
-				System.out.println(e.getMessage());
-			}
-			try{
-				SconSwitch sdi130 = new SconSwitch("", SconNode.SDI_130, "1", siteID,"");
-				createSconObject(baseUrl,orgID,sdi130);
-			} catch (IOException e) {
-			// TODO Auto-generated catch block
-				System.out.println(e.getMessage());
-			}
+//			try{
+//				SconSwitch switch48 = new SconSwitch("", SconNode.SDI_S48, "1", siteID,"");
+//				createSconObject(baseUrl,orgID,switch48);
+//			} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//				System.out.println(e.getMessage());
+//			}
+//			try{
+//				SconSwitch switch48 = new SconSwitch("", SconNode.SDI_S48, "1", siteID,"");
+//				createSconObject(baseUrl,orgID,switch48);
+//			} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//				System.out.println(e.getMessage());
+//			}
+//			try{
+//				SconSwitch sdi130 = new SconSwitch("", SconNode.SDI_130, "1", siteID,"");
+//				createSconObject(baseUrl,orgID,sdi130);
+//			} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//				System.out.println(e.getMessage());
+//			}
+//			try{
+//				SconSwitch sdi130 = new SconSwitch("", SconNode.SDI_130, "1", siteID,"");
+//				createSconObject(baseUrl,orgID,sdi130);
+//			} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//				System.out.println(e.getMessage());
+//			}
 		}
 		
 		if(siteType==SconSite.HQ){

@@ -105,7 +105,7 @@ public class SconSiteAPI implements SconObjectAPI {
 		
 		JsonObject jsonObj = null;
 		try {
-			jsonObj = SconJsonOperations.GetData(url);
+			jsonObj = SconRESTOperations.GetData(url);
 			if(jsonObj!=null){
 				site = (SconSite) convertFromJson(jsonObj);
 			}
@@ -130,7 +130,7 @@ public class SconSiteAPI implements SconObjectAPI {
 		String url = realmUrl + API_PREFIX +"org/"+orgID+"/sites";
 		JsonObject jsonObj = null;
 		try {
-			jsonObj = SconJsonOperations.GetData(url);
+			jsonObj = SconRESTOperations.GetData(url);
 			if(jsonObj!=null){
 				JsonArray array = jsonObj.getJsonArray("items");
 				for(int i = 0 ; i < array.size() ; i++){
@@ -160,7 +160,7 @@ public class SconSiteAPI implements SconObjectAPI {
 		
 		jsonObj = buildSconJsonObject(obj);
 		try {
-			jsonObj = SconJsonOperations.PostData(url, jsonObj);
+			jsonObj = SconRESTOperations.PostData(url, jsonObj);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -191,7 +191,7 @@ public class SconSiteAPI implements SconObjectAPI {
 		jsonObj = buildSconJsonObject(obj);
 		
 		try {
-			jsonObj = SconJsonOperations.PutData(url, jsonObj);
+			jsonObj = SconRESTOperations.PutData(url, jsonObj);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -222,7 +222,7 @@ public class SconSiteAPI implements SconObjectAPI {
 		
 		
 		try {
-			SconJsonOperations.DeleteData(url);
+			SconRESTOperations.DeleteData(url);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

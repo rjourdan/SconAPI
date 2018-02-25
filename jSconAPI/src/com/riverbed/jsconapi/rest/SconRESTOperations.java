@@ -1,19 +1,28 @@
 package com.riverbed.jsconapi.rest;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.Authenticator;
 import java.net.MalformedURLException;
 import java.net.PasswordAuthentication;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonWriter;
 import javax.net.ssl.HttpsURLConnection;
+
+import org.apache.commons.io.IOUtils;
 ;
 
-public class SconJsonOperations {
+public class SconRESTOperations {
 	
 	 
 	 static class MyAuthenticator extends Authenticator {
@@ -159,5 +168,138 @@ public class SconJsonOperations {
 	    	conn.disconnect();
 	    	return returnJson;
 	    }
+	 
+	 /**
+	  * Downloads a SteelConnect VM appliance on a local directory
+	  * @param link The link to download the SteelConnect VM from. 
+	  * @param parameters HTTP Parameters for the GET operation
+	  * @param filepath filename + path where to save the VM image
+	  * @return boolean true if the operation was successful
+	  * @throws IOException
+	  */
+	 public static final boolean DownloadVM(String link,HashMap<String, String> parameters, String filepath) throws IOException{
+		int buffer_size = 4096;
+	    	URL url = null;
+	    	int status;
+	    	boolean first = true;
+	    	
+	    Iterator<String> iterator = parameters.keySet().iterator();
+	    while(iterator.hasNext()) {
+	           String key = iterator.next();
+	           if(first) {
+	        	   	link = link+"?";
+	        	   	first = false;
+	           }
+	           else {
+	        	   	link = link+"&";
+	           }
+	           link = link + key+"="+parameters.get(key);
+	     }
+	    	
+	    	HttpsURLConnection conn = null;
+		Authenticator.setDefault(new MyAuthenticator());
+		try {
+		url = new URL(link);
+		
+			conn = (HttpsURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+			conn.setRequestProperty("Accept", "application/zip");
+			status = conn.getResponseCode();
+		} catch (MalformedURLException e1) {
+			// TODO Auto-generated catch block
+			status = conn.getResponseCode();
+			if (status==401) System.out.println("Authentication error");
+			else System.out.println("HTTP Status code:"+status);
+		}
+		InputStream inputStream = conn.getInputStream();
+         
+        // opens an output stream to save into file
+            FileOutputStream outputStream = new FileOutputStream(filepath);
+ 
+            int bytesRead = -1;
+            byte[] buffer = new byte[buffer_size];
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+ 
+            outputStream.close();
+            inputStream.close();
+            conn.disconnect();
+            return true;
+	    }
+	 
+	 /**
+	  * 
+	  * @param 
+	  * @return String
+	  * @param link
+	  * @param parameters
+	  * @return
+	  * @throws IOException
+	  */
+	 public static final String DownloadEC2Data(String link,HashMap<String, String> parameters) throws IOException{
+		    	URL url = null;
+		    	int status;
+		    	boolean first = true;
+		    	String result = null;
+		   
+		    Iterator<String> iterator = parameters.keySet().iterator();
+		    while(iterator.hasNext()) {
+		           String key = iterator.next();
+		           if(first) {
+		        	   	link = link+"?";
+		        	   	first = false;
+		           }
+		           else {
+		        	   	link = link+"&";
+		           }
+		           link = link + key+"="+parameters.get(key);
+		     }
+		    	
+		    	HttpsURLConnection conn = null;
+			Authenticator.setDefault(new MyAuthenticator());
+			try {
+				url = new URL(link);
+			
+				conn = (HttpsURLConnection) url.openConnection();
+				conn.setRequestMethod("GET");
+				conn.setRequestProperty("Accept", "application/text");
+				status = conn.getResponseCode();
+			} catch (MalformedURLException e1) {
+				// TODO Auto-generated catch block
+				status = conn.getResponseCode();
+				if (status==401) System.out.println("Authentication error");
+				else System.out.println("HTTP Status code:"+status);
+			}
+			InputStream inputStream = conn.getInputStream();
+			result = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+	    
+	        inputStream.close();
+	        conn.disconnect();
+	            
+	        return result;
+	  }
+	 
+	/**
+	 * 
+	 * @param 
+	 * @return JsonError
+	 * @param json
+	 * @return
+	 */
+	 public static JsonError jsonErrorHandler (JsonObject json) {
+		if(json==null) return null;
+			
+		JsonObject error = json.getJsonObject("error");
+		JsonError errorToReturn = null;
+		
+		if(error!=null) {
+			errorToReturn = new JsonError();
+			errorToReturn.setCode(error.getInt("code"));
+			errorToReturn.setMessage(error.getString("message"));
+		}
+			
+		 return errorToReturn;
+	 }
 	    
 }

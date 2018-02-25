@@ -142,7 +142,7 @@ public class SconNodeAPI implements SconObjectAPI {
 		.add("site",node.getSite())
 		.add("model", node.getModel())
 		.add("simulated", node.isSimulated())
-		.add("site",node.getSite())
+		.add("serial",node.getSerial())
 		.add("local_as",node.getLocalAS())
 		.add("router_id",node.getRouterId())
 		.add("disable_stp",node.isDisableStp())
@@ -176,7 +176,7 @@ public class SconNodeAPI implements SconObjectAPI {
 		
 		JsonObject jsonObj = null;
 		try {
-			jsonObj = SconJsonOperations.GetData(url);
+			jsonObj = SconRESTOperations.GetData(url);
 			if(jsonObj!=null){
 				node = (SconNode) convertFromJson(jsonObj);
 			}
@@ -200,7 +200,7 @@ public class SconNodeAPI implements SconObjectAPI {
 		String url = realmUrl + API_PREFIX +"org/"+orgID+"/nodes";
 		JsonObject jsonObj = null;
 		try {
-			jsonObj = SconJsonOperations.GetData(url);
+			jsonObj = SconRESTOperations.GetData(url);
 			if(jsonObj!=null){
 				JsonArray array = jsonObj.getJsonArray("items");
 				for(int i = 0 ; i < array.size() ; i++){
@@ -215,48 +215,236 @@ public class SconNodeAPI implements SconObjectAPI {
 		return objectList;
 	}
 
-	
+	/**
+	 * Register HW appliance on SteelConnect. A Valid Serial number is required to process the request. Registering a Virtual or shadow appliance is recommended.
+	 * @param realmUrl The URL of SteelConnect Realm in the following format "https://xyz.riverbed.cc"
+	 * @param orgID The id of the SteelConnect organization to make the call to. orgId will be in the following format "org-abc-xyz"
+	 * @param obj The Node to register and that needs to get a Serial number
+	 * @return SconObject The SconNode that has been registered
+	 * 
+	 */
 	public static SconObject registerHW(String realmUrl, String orgID, SconObject obj) {
-		// TODO Auto-generated method stub
-		return null;
+		if(obj==null) return null;
+		
+		String url = realmUrl+API_PREFIX +"org/"+orgID+"/node/register";
+		JsonObject json = null;
+		JsonObjectBuilder jsonBuilder = Json.createObjectBuilder();
+		SconNode node = (SconNode)obj;
+		
+		jsonBuilder
+			.add("site",node.getSite())
+			.add("model", node.getModel())
+			.add("simulated", node.isSimulated())
+			.add("serial",node.getSerial())
+			.add("location",node.getLocation());
+		json = jsonBuilder.build();
+		
+		try {
+			json = SconRESTOperations.PostData(url, json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		JsonValue tempValue = json.get("id");
+		
+		if(tempValue!=null){
+			String id = SconUtil.removeBrackets(tempValue.toString());
+			obj.setId(id);
+		}                   
+		else return null;
+		
+		return obj;
 	}
 
+	/**
+	 * Register VM or Shadow appliance on SteelConnect. 
+	 * @param realmUrl The URL of SteelConnect Realm in the following format "https://xyz.riverbed.cc"
+	 * @param orgID The id of the SteelConnect organization to make the call to. orgId will be in the following format "org-abc-xyz"
+	 * @param obj The Node to register. For Shadow appliance, have the simulated attribute sset to TRUE.
+	 * @return SconObject The SconNode that has been registered
+	 * 
+	 */
 	public static SconObject registerVM(String realmUrl, String orgID, SconObject obj) {
-		// TODO Auto-generated method stub
-		return null;
+		if(obj==null) return null;
+		
+		String url = realmUrl+API_PREFIX +"org/"+orgID+"/node/virtual/register";
+		JsonObject json = null;
+		JsonObjectBuilder jsonBuilder = Json.createObjectBuilder();
+		SconNode node = (SconNode)obj;
+		
+		jsonBuilder
+			.add("site",node.getSite())
+			.add("model", node.getModel())
+			.add("simulated", node.isSimulated());
+		json = jsonBuilder.build();
+		
+		try {
+			json = SconRESTOperations.PostData(url, json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		JsonValue tempValue = json.get("id");
+		
+		if(tempValue!=null){
+			String id = SconUtil.removeBrackets(tempValue.toString());
+			obj.setId(id);
+		}                   
+		else return null;
+		
+		return obj;
 	}
 	
+	/**
+	 * Updates an appliance in a particular SteelConnect organization via the REST API
+	 * @return SconNode the object that was updated
+	 * @param realmUrl The URL of SteelConnect Realm in the following format "https://xyz.riverbed.cc"
+	 * @param orgID The id of the SteelConnect organization to make the call to. orgId will be in the following format "org-abc-xyz"
+	 * @param obj The SconNode to be updated on SteelConnect
+	 */
 	public static SconObject update(String realmUrl, String orgID, SconObject obj) {
-		// TODO Auto-generated method stub
-		return null;
+		if(obj==null) return null;
+		JsonObject jsonObj = null;
+		String url = realmUrl+API_PREFIX+"node/"+obj.getId();
+		
+		jsonObj = buildSconJsonObject(obj);
+		
+		try {
+			jsonObj = SconRESTOperations.PutData(url, jsonObj);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
+		JsonValue tempValue = jsonObj.get("id");
+		if(tempValue!=null){
+			String id = SconUtil.removeBrackets(tempValue.toString());
+			obj.setId(id);
+		} else return null;
+		
+		return obj;
 	}
 
-	
+	/**
+	 * Deletes an appliance in a particular SteelConnect organization via the REST API
+	 * @return SconNode the object that was deleted
+	 * @param realmUrl The URL of SteelConnect Realm in the following format "https://xyz.riverbed.cc"
+	 * @param orgID The id of the SteelConnect organization to make the call to. orgId will be in the following format "org-abc-xyz"
+	 * @param obj The SconNode to be deleted on SteelConnect
+	 */
 	public static SconObject delete(String realmUrl, String orgID, SconObject obj) {
-		// TODO Auto-generated method stub
-		return null;
+		if(obj==null) return null;
+		
+		String url = realmUrl+API_PREFIX+"node/"+obj.getId();
+		
+		
+		try {
+			SconRESTOperations.DeleteData(url);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		return obj;
 	}
 
-	public static SconObject factoryReset(String realmUrl, String orgID, SconObject obj) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Reset to factory default an appliance's configuration via the REST API
+	 * @return SconNode the object that was reset factory
+	 * @param realmUrl The URL of SteelConnect Realm in the following format "https://xyz.riverbed.cc"
+	 * @param obj The SconNode to be deleted on SteelConnect
+	 */
+	public static SconObject factoryReset(String realmUrl, SconObject obj) {
+		if(obj==null) return null;
+		
+		String url = realmUrl+API_PREFIX+"node/"+obj.getId()+"/factory_reset";
+		
+		JsonObject json = null;
+		JsonObjectBuilder jsonBuilder = Json.createObjectBuilder();
+		json = jsonBuilder.build();
+		
+		try {
+			json = SconRESTOperations.PostData(url, json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		JsonValue tempValue = json.get("id");
+		
+		return obj;
 	}
 	
+	/**
+	 * Reboot an appliance via the REST API
+	 * @return SconNode the object that was rebooted
+	 * @param realmUrl The URL of SteelConnect Realm in the following format "https://xyz.riverbed.cc"
+	 * @param obj The SconNode to be rebooted on SteelConnect
+	 */
 	public static SconObject reboot(String realmUrl, String orgID, SconObject obj) {
-		// TODO Auto-generated method stub
-		return null;
+		if(obj==null) return null;
+		
+		String url = realmUrl+API_PREFIX+"node/"+obj.getId()+"/reboot";
+		
+		JsonObject json = null;
+		JsonObjectBuilder jsonBuilder = Json.createObjectBuilder();
+		json = jsonBuilder.build();
+		
+		try {
+			json = SconRESTOperations.PostData(url, json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
+		return obj;
 	}
 	
-	public static SconObject createVMImage(String realmUrl, String orgID, SconObject obj) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public static SconObject getVMImageStatus(String realmUrl, String orgID, SconObject obj) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Prepare a virtual image of an appliance via the REST API. It could be created in different format: Hyper-V, VMware, Xen...
+	 * @return Boolean True if the request is accepted, false if there was a problem
+	 * @param realmUrl The URL of SteelConnect Realm in the following format "https://xyz.riverbed.cc"
+	 * @param obj The SconNode for which we want to create a VM image on SteelConnect
+	 */
+	public static Boolean createVMImage(String realmUrl, SconObject obj, String imageType) {
+		if(obj==null) return null;
+		
+		String url = realmUrl+API_PREFIX+"node/"+obj.getId()+"/prepare_image";
+		JsonObject json = null;
+		JsonObjectBuilder jsonBuilder = Json.createObjectBuilder();
+		
+		jsonBuilder
+			.add("type",imageType);
+		json = jsonBuilder.build();
+		
+		try {
+			json = SconRESTOperations.PostData(url, json);
+		} catch (IOException e) {
+			return Boolean.FALSE;
+		}		
+		
+		return Boolean.TRUE;
 	}
 	
-	public static SconObject downloadVMImage(String realmUrl, String orgID, SconObject obj) {
+	/**
+	 * Check the status of image creation of a virtual appliance via the REST API. It could be created in different format: Hyper-V, VMware, Xen...
+	 * @return Boolean True if the request is accepted, false if there was a problem
+	 * @param realmUrl The URL of SteelConnect Realm in the following format "https://xyz.riverbed.cc"
+	 * @param obj The SconNode for which we want to check the creation of an VM image on SteelConnect
+	 */
+	public static String getVMImageStatus(String realmUrl, SconObject obj) {
+		if(obj==null) return null;
+		
+		String url = realmUrl+API_PREFIX+"node/"+obj.getId()+"/image_status";
+		JsonObject json = null;
+		try {
+			 json = SconRESTOperations.GetData(url);
+		} catch (IOException e) {
+			JsonError err = SconRESTOperations.jsonErrorHandler(json);
+			return err.getMessage();
+		}		
+		return json.getString("image_file");
+	}
+	
+	public static String[] downloadEC2(String realmUrl, String orgID, SconObject obj) {
 		// TODO Auto-generated method stub
 		return null;
 	}

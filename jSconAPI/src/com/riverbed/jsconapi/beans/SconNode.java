@@ -25,6 +25,11 @@ public class SconNode extends SconObject{
 	 	public static final String CX_3070 = "cx3070"; 		
 	 	public static final String Tiger = "tiger"; 		
 	 	public static final String SDI_5030 = "panther"; 
+	 	
+	 	public static final String HYPERV = "hyperv";
+	 	public static final String KVM = "kvm";
+	 	public static final String VMX = "vmx";
+	 	public static final String OVA = "ova";
 
 	 	private String[] uplinks;
 	 	private String localAS;

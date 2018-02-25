@@ -121,7 +121,7 @@ public class SconAppAPI implements SconObjectAPI {
 		
 		JsonObject jsonObj = null;
 		try {
-			jsonObj = SconJsonOperations.GetData(url);
+			jsonObj = SconRESTOperations.GetData(url);
 			if(jsonObj!=null){
 				app = (SconApp) convertFromJson(jsonObj);
 			
@@ -147,7 +147,7 @@ public class SconAppAPI implements SconObjectAPI {
 		String url = realmUrl + API_PREFIX +"apps";
 		JsonObject jsonObj = null;
 		try {
-			jsonObj = SconJsonOperations.GetData(url);
+			jsonObj = SconRESTOperations.GetData(url);
 			if(jsonObj!=null){
 				JsonArray array = jsonObj.getJsonArray("items");
 				for(int i = 0 ; i < array.size() ; i++){

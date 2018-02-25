@@ -305,7 +305,7 @@ public class SconPortAPI implements SconObjectAPI {
 		
 		JsonObject jsonObj = null;
 		try {
-			jsonObj = SconJsonOperations.GetData(url);
+			jsonObj = SconRESTOperations.GetData(url);
 			if(jsonObj!=null){
 				port = (SconPort) convertFromJson(jsonObj);
 			}
@@ -329,7 +329,7 @@ public class SconPortAPI implements SconObjectAPI {
 		String url = realmUrl + API_PREFIX +"org/"+orgID+"/ports";
 		JsonObject jsonObj = null;
 		try {
-			jsonObj = SconJsonOperations.GetData(url);
+			jsonObj = SconRESTOperations.GetData(url);
 			if(jsonObj!=null){
 				JsonArray array = jsonObj.getJsonArray("items");
 				for(int i = 0 ; i < array.size() ; i++){
@@ -359,7 +359,7 @@ public class SconPortAPI implements SconObjectAPI {
 		jsonObj = buildSconJsonObject(obj);
 		
 		try {
-			jsonObj = SconJsonOperations.PutData(url, jsonObj);
+			jsonObj = SconRESTOperations.PutData(url, jsonObj);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

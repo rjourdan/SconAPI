@@ -104,7 +104,7 @@ public class SconWanAPI implements SconObjectAPI {
 		
 		JsonObject jsonObj = null;
 		try {
-			jsonObj = SconJsonOperations.GetData(url);
+			jsonObj = SconRESTOperations.GetData(url);
 			if(jsonObj!=null){
 				wan = (SconWan) convertFromJson(jsonObj);
 			}
@@ -128,7 +128,7 @@ List<SconObject> objectList = new ArrayList<SconObject>();
 		String url = realmUrl + API_PREFIX +"org/"+orgID+"/wans";
 		JsonObject jsonObj = null;
 		try {
-			jsonObj = SconJsonOperations.GetData(url);
+			jsonObj = SconRESTOperations.GetData(url);
 			if(jsonObj!=null){
 				JsonArray array = jsonObj.getJsonArray("items");
 				for(int i = 0 ; i < array.size() ; i++){
@@ -158,7 +158,7 @@ List<SconObject> objectList = new ArrayList<SconObject>();
 		
 		jsonObj = buildSconJsonObject(obj);
 		try {
-			jsonObj = SconJsonOperations.PostData(url, jsonObj);
+			jsonObj = SconRESTOperations.PostData(url, jsonObj);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -189,7 +189,7 @@ List<SconObject> objectList = new ArrayList<SconObject>();
 		jsonObj = buildSconJsonObject(obj);
 		
 		try {
-			jsonObj = SconJsonOperations.PutData(url, jsonObj);
+			jsonObj = SconRESTOperations.PutData(url, jsonObj);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -220,7 +220,7 @@ List<SconObject> objectList = new ArrayList<SconObject>();
 		
 		
 		try {
-			SconJsonOperations.DeleteData(url);
+			SconRESTOperations.DeleteData(url);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
