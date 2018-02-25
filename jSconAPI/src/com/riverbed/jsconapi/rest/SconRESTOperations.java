@@ -11,8 +11,6 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -144,6 +142,7 @@ public class SconRESTOperations {
 	  */
 	 public static final JsonObject PutData (String link, JsonObject json) throws IOException{
 	    	URL url = null;
+	    	JsonObject returnJson = null;
 	    	HttpsURLConnection conn = null;
 			Authenticator.setDefault(new MyAuthenticator());
 			try {
@@ -160,11 +159,14 @@ public class SconRESTOperations {
 			}
 			
 			//write!!!!!!!!!!
-			JsonWriter writer = Json.createWriter(conn.getOutputStream());
-			writer.writeObject(json);
-			writer.close();
-		
-			JsonObject returnJson = Json.createReader(conn.getInputStream()).readObject();
+			if(json!=null) {
+				JsonWriter writer = Json.createWriter(conn.getOutputStream());
+				writer.writeObject(json);
+				writer.close();
+				returnJson = Json.createReader(conn.getInputStream()).readObject();
+			}
+			
+			
 	    	conn.disconnect();
 	    	return returnJson;
 	    }

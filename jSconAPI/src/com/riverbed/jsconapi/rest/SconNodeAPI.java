@@ -3,6 +3,7 @@ package com.riverbed.jsconapi.rest;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.json.Json;
@@ -368,7 +369,6 @@ public class SconNodeAPI implements SconObjectAPI {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
-		JsonValue tempValue = json.get("id");
 		
 		return obj;
 	}
@@ -444,14 +444,48 @@ public class SconNodeAPI implements SconObjectAPI {
 		return json.getString("image_file");
 	}
 	
-	public static String[] downloadEC2(String realmUrl, String orgID, SconObject obj) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * 
+	 * @param 
+	 * @return String
+	 * @param realmUrl
+	 * @param obj
+	 * @param filename
+	 * @return
+	 */
+	public static String downloadEC2(String realmUrl, SconObject obj,String filename) {
+		String ec2Data = null; 
+		String url = realmUrl+API_PREFIX+"node/"+obj.getId()+"/get_image";
+		
+		HashMap<String, String> parameter = new HashMap<>();
+		parameter.put("file",filename);
+		try {
+			ec2Data = SconRESTOperations.DownloadEC2Data(url,parameter);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ec2Data;
 	}
 	
-	public static SconObject generateSupportPackage(String realmUrl, String orgID, SconObject obj) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * 
+	 * @param 
+	 * @return boolean
+	 * @param realmUrl
+	 * @param obj
+	 * @return
+	 */
+	public static boolean generateSupportPackage(String realmUrl, SconObject obj) {
+		String url = realmUrl+API_PREFIX+"node/"+obj.getId()+"/generate_support_package";
+		JsonObject json = null;
+		try {
+			 json = SconRESTOperations.PutData(url,json);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}		
+		return true;
 	}
 	
 	public static SconObject downloadSupportPackage(String realmUrl, String orgID, SconObject obj) {
